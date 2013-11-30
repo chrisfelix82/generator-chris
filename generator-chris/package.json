@@ -1,9 +1,9 @@
 {
   "name": "generator-chris",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A generator for Yeoman",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator,angularjs,dojox/app,worklight,cordova,rapid dev"
   ],
   "homepage": "https://github.com/chrisfelix82/generator-chris",
   "bugs": "https://github.com/chrisfelix82/generator-chris/issues",
