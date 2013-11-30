@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+
+<project name="build" default="daily" basedir=".">
+
+	<target name="init">
+		
+		<property name="ios_env" value="iphone" />
+		<property name="ios_env_uppercase" value="Iphone" />
+
+		<property name="worklightProjectName" value="MobileProject" />
+		<property name="worklightAppName" value="main" />
+		<property name="worklightAppVersion" value="1.0" />
+		<property name="worklightEnvironments" value="common,iphone" />
+		<property name="worklightAdapters" value="TestAdapter" />
+		<property name="buildEnvironment" value="prod" />
+		<property name="worklightServer" value="http://localhost:10080/MobileProject" />
+		
+		<property name="ios_projectName" value="${worklightProjectName}${worklightAppName}${ios_env_uppercase}" />
+		<property name="worklightDir" value="${basedir}/../../${worklightProjectName}/apps/${worklightAppName}" />
+		<property name="worklightBuildOutputFolder" value="${basedir}/../output/worklightbuild" />
+		
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${basedir}/../lib/ant-contrib-1.0b3.jar" />
+			</classpath>
+		</taskdef>
+
+		<taskdef resource="com/worklight/ant/defaults.properties">
+			<classpath>
+				<pathelement location="${basedir}/../lib/worklight-build-tools.jar" />
+			</classpath>
+		</taskdef>
+		
+		<path id="server-classpath">
+			<fileset dir="${worklightDir}/../../server/lib">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+
+	</target>
+
+	<!-- =========================================================================== -->
+	<!-- Targets: daily -->
+	<!-- =========================================================================== -->
+	<target name="daily"
+		depends="buildwlapp,deploywlapp,buildadapters,deployadapters" />
+
+	<!-- =========================================================================== -->
+	<!-- Targets: buildwlapp -->
+	<!-- =========================================================================== -->
+	<target name="buildwlapp" depends="init">
+		<echo
+			message="Packaging workligt app ${worklightAppName} with app-builder ant task" />
+		<for list="${worklightEnvironments}" param="env" trim="true">
+			<sequential>
+				<app-builder environments="@{env}" nativeProjectPrefix="${worklightProjectName}"
+					applicationFolder="${worklightDir}" outputFolder="${worklightBuildOutputFolder}"
+					worklightServerHost="${worklightServer}">
+				</app-builder>
+			</sequential>
+		</for>
+	</target>
+
+	<!-- =========================================================================== -->
+	<!-- Targets: deploywlapp -->
+	<!-- =========================================================================== -->
+	<target name="deploywlapp" depends="init">
+		<echo
+			message="Deploying ${worklightProjectName}:${worklightAppName} to worklight server ${worklightServer} using app-deployer ant task" />
+		<for list="${worklightEnvironments}" param="env" trim="true">
+			<sequential>
+				<if>
+					<equals arg1="@{env}" arg2="common" />
+					<then>
+						<app-deployer
+							deployable="${worklightBuildOutputFolder}/${worklightAppName}-@{env}.wlapp"
+							worklightServerHost="${worklightServer}">
+						</app-deployer>
+					</then>
+					<else>
+						<app-deployer
+							deployable="${worklightBuildOutputFolder}/${worklightAppName}-@{env}-${worklightAppVersion}.wlapp"
+							worklightServerHost="${worklightServer}">
+						</app-deployer>
+					</else>
+				</if>
+			</sequential>
+		</for>
+	</target>
+
+	<!-- =========================================================================== -->
+	<!-- Targets: buildadapters-->
+	<!-- =========================================================================== -->
+	<target name="buildadapters" depends="init">
+		<echo message="Build worklight adapter for project ${worklightProjectName}" />
+		<for list="${worklightAdapters}" param="adapter" trim="true">
+			<sequential>
+				<adapter-builder folder="${worklightDir}/../../adapters/@{adapter}"
+					destinationFolder="${worklightBuildOutputFolder}">
+				</adapter-builder>
+			</sequential>
+		</for>
+	</target>
+
+	<!-- =========================================================================== -->
+	<!-- Targets: deployadapters -->
+	<!-- =========================================================================== -->
+	<target name="deployadapters" depends="init">
+		<echo message="Deploy worklight adapter for project ${worklightProjectName}" />
+		<for list="${worklightAdapters}" param="adapter" trim="true">
+			<sequential>
+				<adapter-deployer deployable="${worklightBuildOutputFolder}/@{adapter}.adapter"
+					worklightServerHost="${worklightServer}" />
+			</sequential>
+		</for>
+	</target>
+	
+	<!-- =========================================================================== -->
+	<!-- Targets: buildWAR -->
+	<!-- =========================================================================== -->
+	<target name="buildWAR" depends="init">
+		<echo message="Building worklight WAR for project ${worklightProjectName}" />
+		<javac srcdir="${worklightDir}/../../server/java" destdir="${worklightBuildOutputFolder}/classes"
+			classpathref="server-classpath" verbose="true" />
+		<war-builder projectfolder="${basedir}/../../${worklightProjectName}"
+			destinationfolder="${worklightBuildOutputFolder}/wartemp"
+			warfile="${worklightBuildOutputFolder}/${worklightProjectName}.war"
+			classesfolder="${worklightBuildOutputFolder}/classes">
+		</war-builder>
+	</target>
+
+
+</project>

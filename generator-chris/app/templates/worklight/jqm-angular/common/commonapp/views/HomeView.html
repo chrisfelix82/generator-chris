@@ -1,0 +1,23 @@
+<div data-role="page" data-ng-controller="HomeView">
+    <div data-role="panel" id="siteActionPanel" data-icon="none" data-position-fixed="true" data-theme="a" data-position="left" data-display="reveal">
+        <ul data-role="listview" data-divider-theme="b">
+            <li data-role="list-divider">Actions</li>
+            <li data-icon="false"><a data-transition="pop">Action 1</a></li>
+            <li data-icon="false"><a data-transition="pop">Action 2</a></li>
+        </ul>
+
+    </div>
+
+    <div data-role="header">
+        <h1>Home View</h1>
+        <a href="#siteActionPanel" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true">Icon only</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview" data-filter="true">
+        <li data-ng-repeat="item in items"><a data-ng-click="clickItem(item)">{{item}}</a></li>
+        </ul>
+        <br/><br/>
+        <a data-role="button" data-ng-click="anotherView()">Next</a>
+   </div>
+</div>

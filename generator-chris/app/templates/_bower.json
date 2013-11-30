@@ -1,0 +1,14 @@
+{
+    "name": "<%= appName %>",
+    "version": "1.0.0",
+    "authors": [],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "apps/<%= appName %>/js/lib",
+        "test",
+        "tests"
+    ],
+    "dependencies": <%= bowerDeps %>
+}
