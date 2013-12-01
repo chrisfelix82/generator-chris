@@ -119,7 +119,8 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
     var o = {
     		"platform"  : this.platform,
     		"framework" : this.framework,
-    		"appName"   : this.appName
+    		"appName"   : this.appName,
+    		"commonDir" : this.commonDir
     };
     this.write(".generator-chris",JSON.stringify(o,null,4));
 };
