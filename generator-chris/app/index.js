@@ -30,7 +30,7 @@ ChrisGenerator.prototype.askFor = function askFor() {
       },
       {
           name : 'framework',
-          message: 'What framework are you using? jqm-angular | dojox-app | none',
+          message: 'What framework are you using? jqm-angular | dojox-app',
           default: "jqm-angular"
       }];
 
@@ -114,4 +114,11 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
     });
 
     this.template(this.templateDir + "/_Gruntfile.js","Gruntfile.js");
+    //Save dev environment properties for sub-generators to use
+    var o = {
+    		"platform"  : this.platform,
+    		"framework" : this.framework,
+    		"appName"   : this.appName
+    };
+    this.write(".generator-chris",JSON.stringify(o,null,4));
 };
