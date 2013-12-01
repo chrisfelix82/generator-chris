@@ -1,72 +1,9 @@
 module.exports = function(grunt) {
 
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-
-        jshint: {
-            files: ['<%= commonDir %>/commonapp/**/*.js'],
-            options : {
-                '-W099': true
-            }
-        },
-        
-        watch: {
-            options : {
-                livereload: true
-            },
-
-           files: ['<%= commonDir %>/**/*'],
-           tasks: ['jshint']
-        },
-        
-        clean: {
-        	themes: ["www/dojox/mobile/themes"]
-        },
-        
-        copy: {
-        	  commonapp: {
-        		  expand: true,
-        		  cwd: '../Build/output/requirejsBuild/commonapp',
-        		  src: '**',
-        		  dest: '<%= commonDir %>/commonapp'
-        	  },
-        	  www : {
-        		  expand: true,
-        		  cwd: '../Build/output/requirejsBuild/www',
-        		  src: ['**'],
-        		  dest: 'www'
-        	  },
-        	  themes : {
-        		  expand: true,
-        		  cwd: '../Build/output/requirejsBuild/www/dojox/mobile/themes/',
-        		  src: ['iphone/iphone.css','iphone/ipad.css','common/**'],
-        		  dest: 'www/dojox/mobile/themes/'
-        	  }
-        },
-        
-        requirejs: {
-        	options: {
-        		 mainConfigFile: "<%= commonDir %>/js/require-main.js",
-        		 optimizeCss: "standard",
-                 paths : {
-                     commonapp : 'common/commonapp'
-                 },
-                 fileExclusionRegExp: /native|\.min|\.xml|\.txt|\.zip*/
-        	},
-            commonapp: {
-                options: {
-                    baseUrl: "<%= commonDir %>/commonapp",
-                    dir: "../Build/output/requirejsBuild/commonapp"
-                }
-            },
-            www: {
-            	options: {
-            		baseUrl: "www",
-            		dir: "../Build/output/requirejsBuild/www"
-            	}
-            }
-        }
-    });
+	var config = grunt.file.readJSON('grunt-config.json');
+	config.pkg = grunt.file.readJSON('package.json');
+	config.requirejs.options.fileExclusionRegExp =  /native|\.min|\.xml|\.txt|\.zip*/;
+    grunt.initConfig(config);
 
     //Load existing tasks
     grunt.loadNpmTasks('grunt-contrib-jshint');

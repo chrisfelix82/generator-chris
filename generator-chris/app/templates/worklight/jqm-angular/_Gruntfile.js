@@ -1,50 +1,9 @@
 module.exports = function(grunt) {
 
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-
-        jshint: {
-            files: ['<%= commonDir %>/commonapp/**/*.js'],
-            options : {
-                '-W099': true
-            }
-        },
-        
-        watch: {
-            options : {
-                livereload: true
-            },
-
-           files: ['<%= commonDir %>/**/*'],
-           tasks: ['jshint']
-        },
-        
-        copy: {
-        	  commonapp: {
-        		  expand: true,
-        		  cwd: '../Build/output/requirejsBuild/commonapp',
-        		  src: '**',
-        		  dest: '<%= commonDir %>/commonapp'
-        	  }
-        },
-        
-        requirejs: {
-        	options: {
-        		 mainConfigFile: "<%= commonDir %>/js/require-main.js",
-        		 optimizeCss: "standard",
-                 paths : {
-                     commonapp : 'common/commonapp'
-                 },
-                 fileExclusionRegExp: /native|\.min|\.xml|\.txt|\.zip*/
-        	},
-            commonapp: {
-                options: {
-                    baseUrl: "<%= commonDir %>/commonapp",
-                    dir: "../Build/output/requirejsBuild/commonapp"
-                }
-            }
-        }
-    });
+	var config = grunt.file.readJSON('grunt-config.json');
+	config.pkg = grunt.file.readJSON('package.json');
+	config.requirejs.options.fileExclusionRegExp =  /native|\.min|\.xml|\.txt|\.zip*/;
+    grunt.initConfig(config);
 
     //Load existing tasks
     grunt.loadNpmTasks('grunt-contrib-jshint');

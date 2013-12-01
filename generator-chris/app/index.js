@@ -114,6 +114,7 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
     });
 
     this.template(this.templateDir + "/_Gruntfile.js","Gruntfile.js");
+    this.template(this.templateDir + "/_grunt-config.json","grunt-config.json");
     //Save dev environment properties for sub-generators to use
     var o = {
     		"platform"  : this.platform,

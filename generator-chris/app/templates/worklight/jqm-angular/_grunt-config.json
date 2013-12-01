@@ -1,0 +1,38 @@
+{
+	"jshint": {
+		"files": ["<%= commonDir %>/commonapp/**/*.js"],
+		"options": {
+			"-W099": true
+		}
+	},
+	"watch": {
+		"options": {
+			"livereload": true
+		},
+		"files": ["<%= commonDir %>/**/*"],
+		"tasks": ["jshint"]
+	},
+	"copy": {
+		"commonapp": {
+			"expand": true,
+			"cwd": "../Build/output/requirejsBuild/commonapp",
+			"src": "**",
+			"dest": "<%= commonDir %>/commonapp"
+		}
+	},
+	"requirejs": {
+		"options": {
+			"mainConfigFile": "<%= commonDir %>/js/require-main.js",
+			"optimizeCss": "standard",
+			"paths": {
+				"commonapp": "common/commonapp"
+			}
+		},
+		"commonapp": {
+			"options": {
+				"baseUrl": "<%= commonDir %>/commonapp",
+				"dir": "../Build/output/requirejsBuild/commonapp"
+			}
+		}
+	}
+}

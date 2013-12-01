@@ -1,0 +1,4 @@
+{
+	"name": "<%= name %>app",
+	"dojoBuild": "app.profile.js"
+}
