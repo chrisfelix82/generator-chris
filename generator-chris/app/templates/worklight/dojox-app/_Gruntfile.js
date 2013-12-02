@@ -54,6 +54,6 @@ module.exports = function(grunt) {
     });
     //end Worklight tasks
 
-    grunt.registerTask('default', ['jshint','requirejs','copy','clean:themes','copy:themes','buildwlapp','buildadapters']);
+    grunt.registerTask('default', ['jshint','requirejs','clean','copy','clean:themes','copy:themes','buildwlapp','buildadapters']);
 
 };

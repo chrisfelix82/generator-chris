@@ -13,7 +13,8 @@
 		"tasks": ["jshint"]
 	},
 	"clean": {
-		"themes": ["www/dojox/mobile/themes"]
+		"themes": ["www/dojox/mobile/themes"],
+		"commonapp" : ["<%= commonDir %>/commonapp"]
 	},
 	"copy": {
 		"commonapp": {

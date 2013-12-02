@@ -55,11 +55,13 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 			jshintfiles.push("apps/" + this.appName + "/" + this.name + "/" + this.name + "app/**/*.js");
 			var watchfiles = this.gruntConfig.watch.files;
 			watchfiles.push("apps/" + this.appName + "/" + this.name + "/" + this.name + "app/**/*");
+			
+			this.gruntConfig.clean[this.name + "app"] = ["apps/" + this.appName + "/" + this.name + "/" + this.name + "app"];
 			var copy = this.gruntConfig.copy;
 			copy[this.name + "app"] = {
 					"expand": true,
 					"cwd": "../Build/output/requirejsBuild/" + this.name + "app",
-					"src": "**",
+					"src": ["**","!**/*View.css"],
 					"dest": "apps/main/" + this.name + "/" + this.name + "app"
 				};
 			

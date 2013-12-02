@@ -10,6 +10,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     
     //Start Worklight tasks
     grunt.registerTask('buildwlapp','Build Worklight app .wlapp file',function(){
@@ -53,6 +54,6 @@ module.exports = function(grunt) {
     });
     //end Worklight tasks
 
-    grunt.registerTask('default', ['jshint','requirejs','copy','buildwlapp','buildadapters']);
+    grunt.registerTask('default', ['jshint','requirejs','clean','copy','buildwlapp','buildadapters']);
 
 };
