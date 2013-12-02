@@ -29,10 +29,78 @@ To install generator-chris from npm, run:
 $ npm install -g generator-chris
 ```
 
-Finally, initiate the generator:
+This generator is based on previous work that I have done (see: yo dawg).  I thought that I would start to consolidate generators for IBM Worklight and Cordova based applications into this generator instead. So far, this generator works with Worklight (Cordova support will be added in future versions).  
+
+What can you do?  
+1. Scaffold a dojox/app based IBM Worklight project 
+2. Scaffold a jQuery mobile with Angularjs based IBM Worklight project
+
+## IBM Worklight
+
+### dojox/app
+
+Create a new Worklight project with dojo library support.  Then issue the following commands.  This will stub out a dojox/app project.
 
 ```
+$ cd <to root of IBM Worklight project>
 $ yo chris
+```
+
+You can then create a new environment with:
+
+```
+$ yo chris:env <worklight env name e.g. iphone>
+```
+
+You can create a new dojox/app view with.  NOTE: View will be appended to the end of the view name automatically:
+
+```
+$ yo chris:view <name of view e.g. home>
+```
+
+You can start a rapid dev env by issuing the following command.  This will watch the files in your custom packages e.g. commonapp, iphoneapp.  Once a save is done, the files will be linted, and the browser will issue a live reload:
+
+```
+$ grunt watch
+```
+
+You can choose to build the project using requirejs with.  See the grunt-config.json file for individual targets if you need:
+
+```
+$ grunt
+```
+
+### jQuery mobile + Angular
+
+Create a new Worklight project.  Then issue the following commands.  This will stub out a JQuery mobile app that uses Angular for data binding.
+
+```
+$ cd <to root of IBM Worklight project>
+$ yo chris
+```
+
+You can then create a new environment with:
+
+```
+$ yo chris:env <worklight env name e.g. iphone>
+```
+
+You can create a new view with.  NOTE: View will be appended to the end of the view name automatically:
+
+```
+$ yo chris:view <name of view e.g. home>
+```
+
+You can start a rapid dev env by issuing the following command.  This will watch the files in your custom packages e.g. commonapp, iphoneapp.  Once a save is done, the files will be linted, and the browser will issue a live reload:
+
+```
+$ grunt watch
+```
+
+You can choose to build the project using requirejs with.  See the grunt-config.json file for individual targets if you need:
+
+```
+$ grunt
 ```
 
 ### Getting To Know Yeoman
@@ -40,8 +108,3 @@ $ yo chris
 Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
 
 If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
-
-## License
-
-[MIT License](http://en.wikipedia.org/wiki/MIT_License)
