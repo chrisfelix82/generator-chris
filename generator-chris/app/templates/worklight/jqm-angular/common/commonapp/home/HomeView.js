@@ -1,9 +1,11 @@
-define(["jquery","jqm","angular","commonapp/app","commonapp/Store"],function($,jqm,ng,app,Store){
+define(["jquery","jqm","angular","commonapp/app","commonapp/Store",
+        "i18n!./nls/HomeView"],function($,jqm,ng,app,Store,nls){
 
     //The view controller handles the data binding
      app.ngapp.controller('HomeView',["$scope",function($scope){
 
          $scope.items = Store.items;
+         $scope.text = nls;
 
          $(document).on("pageshow","[data-ng-controller='HomeView']",function(page){
              console.debug("show");
@@ -23,7 +25,7 @@ define(["jquery","jqm","angular","commonapp/app","commonapp/Store"],function($,j
          });
 
          $scope.anotherView = function(){
-               app.route("../controllers/AnotherView","AnotherView.html",{transition: "slide"});
+               app.route("AnotherView","AnotherView.html",{transition: "slide"});
          };
          
          $scope.clickItem = function(item){

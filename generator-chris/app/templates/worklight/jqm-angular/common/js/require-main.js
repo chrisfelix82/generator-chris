@@ -6,7 +6,8 @@ require.config({
     paths: {
         jquery  : "./js/lib/jquery/jquery.min",
         jqm     : "./js/lib/jquery-mobile-bower/js/jquery.mobile-1.3.2.min",
-        angular : "./js/lib/angular/angular.min"
+        angular : "./js/lib/angular/angular.min",
+        i18n    : "./js/lib/requirejs-i18n/i18n"
     },
 
     /**

@@ -38,7 +38,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         //Load the dojox/app
-        require(["../../../../../env/templates/commonapp/app","dojo/domReady!"],function(app){
+        require(["commonapp/app","dojo/domReady!"],function(app){
             console.log('Received Event: ' + id);
             app.init();
         });

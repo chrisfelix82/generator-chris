@@ -25,18 +25,13 @@ ChrisGenerator.prototype.askFor = function askFor() {
 
   var prompts = [
       {
-        name: 'platform',
-        message: 'Hi there.  What platform are you running on? worklight | cordova',
-        default: "worklight"
-      },
-      {
           name : 'framework',
           message: 'What framework are you using? jqm-angular | dojox-app',
           default: "jqm-angular"
       }];
 
   this.prompt(prompts, function (props) {
-    this.platform = props.platform;
+    this.platform = "worklight";//TODO: support cordova later
     this.framework = props.framework;
     this.templateDir = this.platform + "/" + this.framework;
 
@@ -44,7 +39,8 @@ ChrisGenerator.prototype.askFor = function askFor() {
         this.bowerDeps = JSON.stringify({
             "jquery-mobile-bower": "~1.3.2",
             "angular": "~1.2.2",
-            "requirejs": "~2.1.9"
+            "requirejs": "~2.1.9",
+            "requirejs-i18n": "~2.0.4"
         },null,4);
     }else{
         this.bowerDeps = JSON.stringify({},null,4);
@@ -62,7 +58,11 @@ ChrisGenerator.prototype.askFor = function askFor() {
         }.bind(this));
     }else{
         //TODO: cordova
-        console.log('Sorry the cordova generator is not yet complete');
+    	console.log("Cordova is not yet implemented");
+    	this.appName = "change_me";
+        this.jsLibDir = "www/js/lib";
+        this.commonDir = "www";
+        this.defaultCss = this.readFileAsString("www/css/index.css");
         cb();
     }//end if
 
@@ -94,14 +94,17 @@ ChrisGenerator.prototype.app = function app() {
           this.write(this.commonDir + "/css/main.css","@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
       }//end if
   }else{
-      //TODO cordova
-      console.log("Sorry the cordova generator is not yet complete");
+	  this.copy(this.templateDir + "/common/js/index.js",this.commonDir + "/js/index.js");
+      //Create top level css imports
+      if(!fs.existsSync(this.commonDir + "/css/common.css")){
+          this.write(this.commonDir + "/css/common.css",this.defaultCss);
+          this.write(this.commonDir + "/css/index.css","@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
+      }//end if
   }//end if
 
-  //if(this.framework === "jqm-angular"){
-      this.copy(this.templateDir + "/common/js/require-main.js",this.commonDir + "/js/require-main.js");
-  //}
-
+  if(this.framework === "jqm-angular"){
+	  this.copy(this.templateDir + "/common/js/require-main.js",this.commonDir + "/js/require-main.js");
+  }//end if
   this.copy(this.templateDir + "/common/index.html",this.commonDir + "/index.html");
 
 };

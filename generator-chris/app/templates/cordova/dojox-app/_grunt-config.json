@@ -13,40 +13,24 @@
 		"tasks": ["jshint"]
 	},
 	"clean": {
-		"themes": ["www/dojox/mobile/themes"],
 		"commonapp" : ["<%= commonDir %>/commonapp"]
 	},
 	"copy": {
 		"commonapp": {
 			"expand": true,
-			"cwd": "../Build/output/requirejsBuild/commonapp",
+			"cwd": "../Build/output/requirejsBuild/commonap",
 			"src": "**",
 			"dest": "<%= commonDir %>/commonapp"
-		},
-		"www": {
-			"expand": true,
-			"cwd": "../Build/output/requirejsBuild/www",
-			"src": ["**"],
-			"dest": "www"
-		},
-		"themes": {
-			"expand": true,
-			"cwd": "../Build/output/requirejsBuild/www/dojox/mobile/themes/",
-			"src": ["iphone/iphone.css",
-			"iphone/ipad.css",
-			"common/**"],
-			"dest": "www/dojox/mobile/themes/"
 		}
 	},
 	"requirejs": {
 		"options": {
-			"optimizeCss": "standard"
-		},
-		"www": {
-			"options": {
-				"baseUrl": "www",
-				"dir": "../Build/output/requirejsBuild/www"
-			}
+			"optimizeCss": "standard",
+			"paths": {
+					"dojo" : "../www/dojo",
+					"dijit" : "../www/dijit",
+					"dojox" : "../www/dojox"
+				}
 		},
 		
 		"commonapp": {

@@ -109,28 +109,28 @@ ViewGenerator.prototype._createJQMAngularView = function _createJQMAngularView(p
 	this.template(this.templateDir + "/_SomeView.js",pkg + "/" + this.fileName + ".js");
 	this.template(this.templateDir + "/_SomeView.html",pkg + "/" + this.fileName + ".html");
 	
-	this.template(this.templateDir + "/css/_someView.css",pkg + "/css/" + this.fileName + ".css");
-	//this.template(this.templateDir + "/nls/_someView.js",pkg + "/nls/" + this.fileName + ".js");
+	this.template(this.templateDir + "/css/_SomeView.css",pkg + "/css/" + this.fileName + ".css");
+	this.template(this.templateDir + "/nls/_SomeView.js",pkg + "/nls/" + this.fileName + ".js");
 	
-	console.log("Checking if " + pkg + "/" + this.component + ".css exists...");
-	if(fs.existsSync(pkg + "/" + this.component + ".css")){
+	console.log("Checking if " + pkg + "/" + this.component + "_component.css exists...");
+	if(fs.existsSync(pkg + "/" + this.component + "_component.css")){
 		console.log("It exists, so I will append to it");
-		var componentCSS = this.readFileAsString(pkg + "/" + this.component + ".css");
+		var componentCSS = this.readFileAsString(pkg + "/" + this.component + "_component.css");
 		if(componentCSS.indexOf("./css/" + this.fileName + ".css") === -1){
 			//Only append css import if it does not exist
 			componentCSS += "\n@import url('./css/" + this.fileName + ".css');";
-			this.write(pkg + "/" + this.component + ".css",componentCSS);
+			this.write(pkg + "/" + this.component + "_component.css",componentCSS);
 		}//end if
 	}else{
 		console.log("It does not exist, so I will create it");
-		this.template(this.templateDir +"/_someComponent.css",pkg + "/" + this.component + ".css");
+		this.template(this.templateDir +"/_someComponent.css",pkg + "/" + this.component + "_component.css");
 		var path = pkg.split("/");
 		var parentDir = path[path.length - 2];
 		console.log("Adding component css file to " + parentDir +".css");
 		var appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
-		if(appCSS.indexOf(this.component + "/" + this.component + ".css") === -1){
+		if(appCSS.indexOf(this.component + "/" + this.component + "_component.css") === -1){
 			//only append if import does not exist
-			appCSS += "\n@import url('" + this.component + "/" + this.component + ".css');";
+			appCSS += "\n@import url('" + this.component + "/" + this.component + "_component.css');";
 			this.write(pkg + "/../" + parentDir + ".css",appCSS);
 		}//end if
 	}//end if 
@@ -148,25 +148,25 @@ ViewGenerator.prototype._createDojoView = function _createDojoView(pkg) {
 	this.template(this.templateDir + "/css/_someView.css",pkg + "/css/" + this.fileName + ".css");
 	this.template(this.templateDir + "/nls/_someView.js",pkg + "/nls/" + this.fileName + ".js");
 	
-	console.log("Checking if " + pkg + "/" + this.component + ".css exists...");
-	if(fs.existsSync(pkg + "/" + this.component + ".css")){
+	console.log("Checking if " + pkg + "/" + this.component + "_component.css exists...");
+	if(fs.existsSync(pkg + "/" + this.component + "_component.css")){
 		console.log("It exists, so I will append to it");
-		var componentCSS = this.readFileAsString(pkg + "/" + this.component + ".css");
+		var componentCSS = this.readFileAsString(pkg + "/" + this.component + "_component.css");
 		if(componentCSS.indexOf("./css/" + this.fileName + ".css") === -1){
 			//Only append css import if it does not exist
 			componentCSS += "\n@import url('./css/" + this.fileName + ".css');";
-			this.write(pkg + "/" + this.component + ".css",componentCSS);
+			this.write(pkg + "/" + this.component + "_component.css",componentCSS);
 		}//end if
 	}else{
 		console.log("It does not exist, so I will create it");
-		this.template(this.templateDir +"/_someComponent.css",pkg + "/" + this.component + ".css");
+		this.template(this.templateDir +"/_someComponent.css",pkg + "/" + this.component + "_component.css");
 		var path = pkg.split("/");
 		var parentDir = path[path.length - 2];
 		console.log("Adding component css file to " + parentDir +".css");
 		var appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
-		if(appCSS.indexOf(this.component + "/" + this.component + ".css") === -1){
+		if(appCSS.indexOf(this.component + "/" + this.component + "_component.css") === -1){
 			//only append if import does not exist
-			appCSS += "\n@import url('" + this.component + "/" + this.component + ".css');";
+			appCSS += "\n@import url('" + this.component + "/" + this.component + "_component.css');";
 			this.write(pkg + "/../" + parentDir + ".css",appCSS);
 		}//end if
 	}//end if 

@@ -46,7 +46,7 @@
 		depends="buildwlapp,deploywlapp,buildadapters,deployadapters" />
 
 	<!-- =========================================================================== -->
-	<!-- Targets: buildwlapp -->
+	<!-- Targets: buildwlapp If you use the Dojo Toolkit, add skinBuildExtensions="build-dojo.xml” to app-builder element -->
 	<!-- =========================================================================== -->
 	<target name="buildwlapp" depends="init">
 		<echo

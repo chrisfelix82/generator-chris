@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var fs = require('fs');
 
 var EnvGenerator = module.exports = function EnvGenerator(args, options, config) {
   // By calling `NamedBase` here, we get the argument to the subgenerator call
@@ -46,7 +47,7 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 		var jshintfiles = this.gruntConfig.jshint.files;
 		var exists = false;
 		for(var x = 0; x < jshintfiles.length; x++){
-			if(jshintfiles[x].indexOf(this.appName + "app") > -1){
+			if(jshintfiles[x].indexOf(this.name + "app") > -1){
 				exists = true;
 				break;
 			}//end if
@@ -61,11 +62,11 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 			copy[this.name + "app"] = {
 					"expand": true,
 					"cwd": "../Build/output/requirejsBuild/" + this.name + "app",
-					"src": ["**","!**/*View.css"],
-					"dest": "apps/main/" + this.name + "/" + this.name + "app"
+					"src": ["**","!**/css/**","!**/*_component.css"],
+					"dest": "apps/" + this.appName + "/" + this.name + "/" + this.name + "app"
 				};
 			
-		   this.gruntConfig.requirejs.options.paths[this.name + "app"] = this.name + "/" + this.name + "app";
+		  // this.gruntConfig.requirejs.options.paths[this.name + "app"] = this.name + "app";
 		   this.gruntConfig.requirejs[this.name + "app"] = {
 				"options": {
 					"baseUrl": "apps/" + this.appName + "/" + this.name + "/" + this.name + "app",
@@ -85,9 +86,17 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 };
 
 EnvGenerator.prototype.cssFiles = function cssFiles() {
-	var currentGlobalCss;
+	var envCss;
+	var mainCss; 
 	if(this.platform === "worklight"){
-		currentGlobalCss = this.readFileAsString(this.commonDir + "/css/main.css");
+		mainCss = this.readFileAsString("apps/" + this.appName + "/" + this.name + "/css/main.css");
+		envCss = "apps/" + this.appName + "/" + this.name + "/css/" + this.name + ".css"; 
+	    if(!fs.existsSync(envCss)){
+	        this.write(envCss,mainCss);
+	        this.write("apps/" + this.appName + "/" + this.name + "/css/main.css","@import url('./" + this.name + ".css');\n@import url('../" + this.name + "app/" + this.name + "app.css');\n");
+	    }else if(mainCss.indexOf(this.name + "app") == -1){
+	    	this.write("apps/" + this.appName + "/" + this.name + "/css/main.css",mainCss + "\n@import url('../" + this.name + "app/" + this.name + "app.css');");
+	    }//end if
 	}else if(this.platform === "cordova"){
 		//TODO
 		console.log("Not yet implemented");
@@ -95,5 +104,5 @@ EnvGenerator.prototype.cssFiles = function cssFiles() {
 		console.error("Only Worklight and Cordova based apps are supported at this time");
 		return;
 	}//end if 
-	this.write(this.commonDir + "/css/main.css",currentGlobalCss + "\n@import url('../" + this.name + "app/" + this.name + "app.css');");
+	
 };

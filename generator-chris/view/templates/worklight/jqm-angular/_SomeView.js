@@ -1,10 +1,10 @@
-define(["jquery","jqm","angular","commonapp/app"],function($,jqm,ng,app){
+define(["jquery","jqm","angular","commonapp/app","i18n!./nls/<%= fileName %>"],function($,jqm,ng,app,nls){
 
     //The view controller handles the data binding
      app.ngapp.controller('<%= fileName %>',["$scope",function($scope){
 
-         $scope.items = Store.items;
-
+         $scope.text = nls;
+         
          $(document).on("pageshow","[data-ng-controller='<%= fileName %>']",function(page){
              console.debug("show");
              $scope.items.push(new Date());
@@ -23,7 +23,7 @@ define(["jquery","jqm","angular","commonapp/app"],function($,jqm,ng,app){
          });
 
         
-         // app.route("../controllers/AnotherView","AnotherView.html",{transition: "slide"});
+         // app.route("AnotherView","AnotherView.html",{transition: "slide"});
          
 
      }]);
