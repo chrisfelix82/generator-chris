@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var fsextra = require("fs-extra");
+var fs = require("fs");
 
 var ChrisGenerator = module.exports = function ChrisGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -56,6 +57,7 @@ ChrisGenerator.prototype.askFor = function askFor() {
             this.appName = props.appName;
             this.jsLibDir = "apps/" + this.appName + "/common/js/lib";
             this.commonDir = "apps/" + this.appName + "/common";
+            this.defaultCss = this.readFileAsString("apps/" + this.appName + "/common/css/main.css");
             cb();
         }.bind(this));
     }else{
@@ -86,6 +88,11 @@ ChrisGenerator.prototype.app = function app() {
 
   if(this.platform === "worklight"){
       this.copy(this.templateDir + "/common/js/main.js",this.commonDir + "/js/main.js");
+      //Create top level css imports
+      if(!fs.existsSync(this.commonDir + "/css/common.css")){
+          this.write(this.commonDir + "/css/common.css",this.defaultCss);
+          this.write(this.commonDir + "/css/main.css","@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
+      }//end if
   }else{
       //TODO cordova
       console.log("Sorry the cordova generator is not yet complete");

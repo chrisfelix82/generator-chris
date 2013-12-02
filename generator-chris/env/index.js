@@ -34,7 +34,7 @@ EnvGenerator.prototype.files = function files() {
 	
 	this.template(this.templateDir + "/" + "_app.profile.js",this.envPath + "/" + this.name + "app/app.profile.js");
 	this.template(this.templateDir + "/" + "_package.json",this.envPath + "/" + this.name + "app/package.json");
-	this.copy(this.templateDir + "/app.css",this.envPath + "/" + this.name + "app.css");
+	this.copy(this.templateDir + "/app.css",this.envPath  + "/" + this.name + "app/" + this.name + "app.css");
 
 };
 
@@ -80,4 +80,18 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 		return;
 	}//end if
 	this.write("grunt-config.json",JSON.stringify(this.gruntConfig,null,4));
+};
+
+EnvGenerator.prototype.cssFiles = function cssFiles() {
+	var currentGlobalCss;
+	if(this.platform === "worklight"){
+		currentGlobalCss = this.readFileAsString(this.commonDir + "/css/main.css");
+	}else if(this.platform === "cordova"){
+		//TODO
+		console.log("Not yet implemented");
+	}else{
+		console.error("Only Worklight and Cordova based apps are supported at this time");
+		return;
+	}//end if 
+	this.write(this.commonDir + "/css/main.css",currentGlobalCss + "\n@import url('../" + this.name + "app/" + this.name + "app.css');");
 };
