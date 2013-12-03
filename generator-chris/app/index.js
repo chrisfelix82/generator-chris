@@ -13,6 +13,7 @@ var ChrisGenerator = module.exports = function ChrisGenerator(args, options, con
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  this.projectName = this.options.env.cwd.substring(this.options.env.cwd.lastIndexOf("/") + 1);
 };
 
 util.inherits(ChrisGenerator, yeoman.generators.Base);
@@ -125,12 +126,18 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
 
     this.template(this.templateDir + "/_Gruntfile.js","Gruntfile.js");
     this.template(this.templateDir + "/_grunt-config.json","grunt-config.json");
+    var buildXML = this.readFileAsString(this._sourceRoot + "/Build/scripts/build.xml");
+    buildXML = buildXML.replace(/<%= projectName %>/g,this.projectName);
+    buildXML = buildXML.replace(/<%= appName %>/g,this.appName);
+    this.write("../Build/scripts/build.xml",buildXML);
+    
     //Save dev environment properties for sub-generators to use
     var o = {
     		"platform"  : this.platform,
     		"framework" : this.framework,
     		"appName"   : this.appName,
-    		"commonDir" : this.commonDir
+    		"commonDir" : this.commonDir,
+    		"projectName" : this.projectName
     };
     this.write(".generator-chris",JSON.stringify(o,null,4));
 };

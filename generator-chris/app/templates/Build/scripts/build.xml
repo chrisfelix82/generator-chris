@@ -7,13 +7,13 @@
 		<property name="ios_env" value="iphone" />
 		<property name="ios_env_uppercase" value="Iphone" />
 
-		<property name="worklightProjectName" value="MobileProject" />
-		<property name="worklightAppName" value="main" />
+		<property name="worklightProjectName" value="<%= projectName %>" />
+		<property name="worklightAppName" value="<%= appName %>" />
 		<property name="worklightAppVersion" value="1.0" />
-		<property name="worklightEnvironments" value="common,iphone" />
-		<property name="worklightAdapters" value="TestAdapter" />
+		<property name="worklightEnvironments" value="common" />
+		<property name="worklightAdapters" value="" />
 		<property name="buildEnvironment" value="prod" />
-		<property name="worklightServer" value="http://localhost:10080/MobileProject" />
+		<property name="worklightServer" value="http://localhost:10080/<%= projectName %>" />
 		
 		<property name="ios_projectName" value="${worklightProjectName}${worklightAppName}${ios_env_uppercase}" />
 		<property name="worklightDir" value="${basedir}/../../${worklightProjectName}/apps/${worklightAppName}" />

@@ -20,7 +20,7 @@
 		"commonapp": {
 			"expand": true,
 			"cwd": "../Build/output/requirejsBuild/commonapp",
-			"src": "**",
+			"src": ["**","!**/css/**","!**/*_component.css"],
 			"dest": "<%= commonDir %>/commonapp"
 		},
 		"www": {
