@@ -107,7 +107,7 @@ $ grunt
 
 A project is created called "Build" in the workspace.  If you are using Eclipse, this project will not show up unless you create a new general project in the workspace with the name of "Build".  Once the project is visible, read the README.md file under Build/lib.  If you wish to use the grunt build, then you will have to have the IBM Worklight jars that ship with the production version of the product.  They are not distributed with this generator due to licensing restrictions.
 
-If you wish to drive the build through RTC, the easiest way is to create a command line based jazz build definition.  Set the working directory to be your Worklight project's directory, and the command should simply be "grunt".  This is the same as you would do manually from the command line.  Of coursem the Workight tasks depend on ant and node, so you will have to install those on the build engine machine.
+If you wish to drive the build through RTC, the easiest way is to create a command line based jazz build definition.  Set the working directory to be your Worklight project's directory, and the command should simply be "grunt".  This is the same as you would do manually from the command line.  Of course the Workight tasks depend on ant and node, so you will have to install those on the build engine machine.
 
 The build does not produce layers, it only minifies and obfuscates the source files.  If you are use to doing a dojox/app custom build, then you will have to set one up manually.  This generator does not deal with that.  If you are using dojox/app, you may consider using "yo dawg" - https://github.com/chrisfelix82/dawg, which has a build that is specifically tailored for custom dojo apps.
 
