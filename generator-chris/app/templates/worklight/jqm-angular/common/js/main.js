@@ -25,7 +25,7 @@ function wlCommonInit(){
 	    	require(["commonapp/app"],function(app){
 	    		console.debug("App init complete");
 	            //Always use app.route(viewController,viewTemplate) to navigate instead of using hrefs
-	            app.route("commonapp/home/HomeView","commonapp/home/HomeView.html");
+	            app.route("HomeView");
 	    	});
 	    });
 

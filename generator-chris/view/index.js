@@ -13,6 +13,7 @@ var ViewGenerator = module.exports = function ViewGenerator(args, options, confi
   this.templateDir = this.platform + "/" + this.framework;
   this.appName = this.properties.appName;
   this.commonDir = this.properties.commonDir;
+  this.appConfig = JSON.parse(this.readFileAsString(this.commonDir + "/commonapp/config.json"));
 };
 
 util.inherits(ViewGenerator, yeoman.generators.NamedBase);
@@ -66,21 +67,21 @@ ViewGenerator.prototype.askFor = function askFor() {
 	};
 
 ViewGenerator.prototype.files = function files() {
-	var envDir = this.packageName.substring(0,this.packageName.indexOf("/") - 3);
+	this.envDir = this.packageName.substring(0,this.packageName.indexOf("/") - 3);
 
     var pkg;
     if(this.platform === "worklight"){
-    	if(envDir === "common"){
+    	if(this.envDir === "common"){
             pkg = this.commonDir + "/" + this.packageName
         }else{
-            pkg = "apps/" + this.appName + "/" + envDir + "/" + this.packageName;
+            pkg = "apps/" + this.appName + "/" + this.envDir + "/" + this.packageName;
         }//end if
     }else{
     	//assume cordova
-    	if(envDir === "common"){
+    	if(this.envDir === "common"){
             pkg = this.appRoot + "/www/" + this.packageName
         }else{
-            pkg = this.appRoot + "/merges/" + envDir + "/" + this.packageName;
+            pkg = this.appRoot + "/merges/" + this.envDir + "/" + this.packageName;
         }//end if
     }//end if
     
@@ -127,13 +128,30 @@ ViewGenerator.prototype._createJQMAngularView = function _createJQMAngularView(p
 		var path = pkg.split("/");
 		var parentDir = path[path.length - 2];
 		console.log("Adding component css file to " + parentDir +".css");
-		var appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
-		if(appCSS.indexOf(this.component + "/" + this.component + "_component.css") === -1){
-			//only append if import does not exist
-			appCSS += "\n@import url('" + this.component + "/" + this.component + "_component.css');";
-			this.write(pkg + "/../" + parentDir + ".css",appCSS);
-		}//end if
-	}//end if 
+
+		var appCss;
+        try{
+           appCss = this.readFileAsString(pkg + "/../" + parentDir + "_component.css");
+            if(appCss.indexOf(this.component + "/" + this.component + "_component.css") === -1){
+                //only append if import does not exist
+                appCss += "\n@import url('" + this.component + "/" + this.component + "_component.css');";
+                this.write(pkg + "/../" + parentDir + "_component.css",appCss);
+            }//end if
+        }catch(e){
+            console.log("Could not find",pkg + "/../" + parentDir + "_component.css","adding component css to",this.envDir + "app.css");
+        }//end try
+
+
+	}//end if
+
+    //Add the new view to the config.json file
+    if(!(this.fileName in this.appConfig.routes)){
+        this.appConfig.routes[this.fileName] = {
+          "template" :  this.packageName + "/" + this.fileName + ".html",
+          "controller" : this.packageName + "/" + this.fileName
+        };
+        this.write(this.commonDir + "/commonapp/config.json",JSON.stringify(this.appConfig,null,4));
+    }//end if
 };
 
 
@@ -162,8 +180,11 @@ ViewGenerator.prototype._createDojoView = function _createDojoView(pkg) {
 		this.template(this.templateDir +"/_someComponent.css",pkg + "/" + this.component + "_component.css");
 		var path = pkg.split("/");
 		var parentDir = path[path.length - 2];
-		console.log("Adding component css file to " + parentDir +".css");
-		var appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
+		console.log("Adding component css file to " + parentDir +"_component.css");
+
+        var appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
+
+
 		if(appCSS.indexOf(this.component + "/" + this.component + "_component.css") === -1){
 			//only append if import does not exist
 			appCSS += "\n@import url('" + this.component + "/" + this.component + "_component.css');";

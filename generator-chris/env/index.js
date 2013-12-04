@@ -36,7 +36,9 @@ EnvGenerator.prototype.files = function files() {
 	this.template(this.templateDir + "/" + "_app.profile.js",this.envPath + "/" + this.name + "app/app.profile.js");
 	this.template(this.templateDir + "/" + "_package.json",this.envPath + "/" + this.name + "app/package.json");
 	this.copy(this.templateDir + "/app.css",this.envPath  + "/" + this.name + "app/" + this.name + "app.css");
-
+    if(this.platform === "worklight" && this.framework === "jqm-angular"){
+        this.copy(this.templateDir + "/controllers/controllers_component.css",this.envPath + "/" + this.name + "app/controllers/controllers_component.css");
+    }//end if
 };
 
 EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {

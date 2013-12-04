@@ -1,1 +1,2 @@
 /*Add @import statements for package level css files.  i.e. if you had a component welcome, you would include welcome.css*/
+@import url('./controllers/controllers_component.css');

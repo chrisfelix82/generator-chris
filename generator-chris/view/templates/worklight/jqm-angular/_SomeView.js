@@ -7,9 +7,7 @@ define(["jquery","jqm","angular","commonapp/app","i18n!./nls/<%= fileName %>"],f
          
          $(document).on("pageshow","[data-ng-controller='<%= fileName %>']",function(page){
              console.debug("show");
-             $scope.items.push(new Date());
 
-             $scope.$apply();
          });
          $(document).on("pagehide","[data-ng-controller='<%= fileName %>']",function(){
              console.debug("hide");
@@ -22,8 +20,6 @@ define(["jquery","jqm","angular","commonapp/app","i18n!./nls/<%= fileName %>"],f
              console.debug("before hide");
          });
 
-        
-         // app.route("AnotherView","AnotherView.html",{transition: "slide"});
          
 
      }]);

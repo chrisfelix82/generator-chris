@@ -41,7 +41,8 @@ ChrisGenerator.prototype.askFor = function askFor() {
             "jquery-mobile-bower": "~1.3.2",
             "angular": "~1.2.2",
             "requirejs": "~2.1.9",
-            "requirejs-i18n": "~2.0.4"
+            "requirejs-i18n": "~2.0.4",
+            "requirejs-text": "~2.0.10"
         },null,4);
     }else{
         this.bowerDeps = JSON.stringify({},null,4);

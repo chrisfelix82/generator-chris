@@ -14,7 +14,7 @@ define(["jquery","jqm","angular","commonapp/app","commonapp/Store",
          });
         $scope.home = function(){
             Store.items[0] = $scope.name;
-            app.route("HomeView","HomeView.html",{transition: "slide",reverse: true});
+            app.route("HomeView",{transition: "slide",reverse: true});
         };
      }]);
 

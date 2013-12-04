@@ -25,7 +25,7 @@ define(["jquery","jqm","angular","commonapp/app","commonapp/Store",
          });
 
          $scope.anotherView = function(){
-               app.route("AnotherView","AnotherView.html",{transition: "slide"});
+               app.route("AnotherView",{transition: "slide"});
          };
          
          $scope.clickItem = function(item){

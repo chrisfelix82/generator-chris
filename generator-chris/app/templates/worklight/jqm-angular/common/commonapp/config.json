@@ -1,0 +1,12 @@
+{
+	"routes" : {
+		"HomeView" : {
+			"template" : "commonapp/controllers/home/HomeView.html",
+			"controller" : "commonapp/controllers/home/HomeView"
+		},
+		"AnotherView" : {
+			"template" : "commonapp/controllers/home/AnotherView.html",
+			"controller" : "commonapp/controllers/home/AnotherView"
+		}
+	}
+}
