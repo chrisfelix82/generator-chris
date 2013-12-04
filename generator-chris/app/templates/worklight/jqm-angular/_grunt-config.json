@@ -9,7 +9,7 @@
 		"options": {
 			"livereload": true
 		},
-		"files": ["<%= commonDir %>/**/*"],
+		"files": ["<%= commonDir %>/**/*","!<%= commonDir %>/js/lib/**/*"],
 		"tasks": ["jshint"]
 	},
 	
