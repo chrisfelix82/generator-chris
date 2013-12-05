@@ -75,6 +75,9 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 					"dir": "../Build/output/requirejsBuild/" + this.name + "app"
 				}
 			};
+
+            //Add env to jsdoc path
+            this.gruntConfig.jsdoc.dist.src.push("apps/" + this.appName + "/" + this.name + "/" + this.name + "app/**/*.js");
 		}//end if
 	}else if(this.platform === "cordova"){
 		console.log("Updating Cordova app's grunt-config.json file to contain entries for env",this.name);

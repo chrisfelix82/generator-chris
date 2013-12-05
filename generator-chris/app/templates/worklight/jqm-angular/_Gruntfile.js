@@ -11,6 +11,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-jsdoc');
+
+    grunt.registerTask('rexpress','starts the rexpress server',function(){
+        grunt.util.spawn({
+            cmd : 'node',
+            args: ['../rexpress/app.js'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
+    });
     
     //Start Worklight tasks
     grunt.registerTask('buildwlapp','Build Worklight app .wlapp file',function(){

@@ -5,6 +5,16 @@
 			"-W099": true
 		}
 	},
+
+    "jsdoc" : {
+        "dist" : {
+            "src": ["<%= commonDir %>/commonapp/**/*.js"],
+            "options": {
+                "destination": "../rexpress/frontend"
+            }
+        }
+    },
+
 	"watch": {
 		"options": {
 			"livereload": true
