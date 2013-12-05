@@ -28,7 +28,7 @@ ViewGenerator.prototype.askFor = function askFor() {
 	  {
 		  name: 'packageName',
 		  message: 'What is the package name that you wish to create the view under?',
-		  default: "commonapp/views"
+		  default: "commonapp/controllers"
 	   }];
 	  
 	  if(this.framework === "dojox-app"){
