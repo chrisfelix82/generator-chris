@@ -142,3 +142,24 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
     };
     this.write(".generator-chris",JSON.stringify(o,null,4));
 };
+
+ChrisGenerator.prototype.tests = function tests() {
+    var cb = this.async();
+    this.template(this.templateDir + "/_karma.conf.js","karma.conf.js");
+    //copy test dir over
+    fsextra.copy(this._sourceRoot + "/" + this.templateDir + "/test/unit", this.options.env.cwd + "/test/unit",function(err){
+        if (err) {
+            console.error("Failed copying test directory" + err);
+            cb(err);
+        }else{
+            console.log("Success copying test directory.");
+            //Now copy over _test-main.js and angular-mocks.js
+            this.template(this.templateDir + "/test/_test-main.js",this.options.env.cwd + "/test/test-main.js");
+            this.copy(this.templateDir + "/test/angular-mocks.js",this.options.env.cwd + "/test/angular-mocks.js");
+            cb();
+        }//end if
+    }.bind(this));
+
+
+
+};

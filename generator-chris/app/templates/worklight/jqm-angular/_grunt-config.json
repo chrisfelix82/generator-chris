@@ -6,6 +6,13 @@
 		}
 	},
 
+    "karma" : {
+        "unit": {
+            "configFile": "karma.conf.js",
+            "background" : true
+        }
+    },
+
     "jsdoc" : {
         "dist" : {
             "src": ["<%= commonDir %>/commonapp/**/*.js"],
@@ -20,7 +27,7 @@
 			"livereload": true
 		},
 		"files": ["<%= commonDir %>/**/*","!<%= commonDir %>/js/lib/**/*"],
-		"tasks": ["jshint"]
+		"tasks": ["jshint","karma:unit:run"]
 	},
 	
 	"clean": {

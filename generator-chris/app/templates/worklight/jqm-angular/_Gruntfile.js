@@ -12,6 +12,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('rexpress','starts the rexpress server',function(){
         grunt.util.spawn({
@@ -63,6 +64,7 @@ module.exports = function(grunt) {
     });
     //end Worklight tasks
 
-    grunt.registerTask('default', ['jshint','requirejs','clean','copy','buildwlapp','buildadapters']);
+    grunt.registerTask('default', ['jshint','karma:unit','requirejs','clean','copy','buildwlapp','buildadapters']);
+    grunt.registerTask('dev',['karma:unit:start','watch']);
 
 };

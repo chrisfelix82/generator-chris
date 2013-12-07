@@ -1,8 +1,8 @@
-define(["jquery","jqm","angular","commonapp/app","commonapp/Store",
-        "i18n!./nls/AnotherView"],function($,jqm,ng,app,Store,nls){
+define(["jquery","angular","commonapp/app","commonapp/Store",
+        "i18n!./nls/AnotherView"],function($,angular,app,Store,nls){
 
     //The view controller handles the data binding
-     app.ngapp.controller('AnotherView',["$scope",function($scope){
+     angular.module("app").controller('AnotherView',["$scope",function($scope){
 
     	 $scope.text = nls;
     	 

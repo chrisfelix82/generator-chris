@@ -1,7 +1,7 @@
-define(["jquery","jqm","angular","commonapp/app","i18n!./nls/<%= fileName %>"],function($,jqm,ng,app,nls){
+define(["jquery","angular","commonapp/app","i18n!./nls/<%= fileName %>"],function($,angular,app,nls){
 
     //The view controller handles the data binding
-     app.ngapp.controller('<%= fileName %>',["$scope",function($scope){
+     angular.module("app").controller('<%= fileName %>',["$scope",function($scope){
 
          $scope.text = nls;
          

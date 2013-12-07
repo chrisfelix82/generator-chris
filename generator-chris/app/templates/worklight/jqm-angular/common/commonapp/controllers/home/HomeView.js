@@ -1,8 +1,8 @@
-define(["jquery","jqm","angular","commonapp/app","commonapp/Store",
-        "i18n!./nls/HomeView"],function($,jqm,ng,app,Store,nls){
-
+define(["jquery","angular","commonapp/app","commonapp/Store",
+        "i18n!./nls/HomeView"],function($,angular,app,Store,nls){
+	
     //The view controller handles the data binding
-     app.ngapp.controller('HomeView',["$scope",function($scope){
+     angular.module("app").controller('HomeView',["$scope",function($scope){
 
          $scope.items = Store.items;
          $scope.text = nls;
