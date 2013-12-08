@@ -70,6 +70,26 @@ You can choose to build the project using requirejs with the following command. 
 $ grunt
 ```
 
+You can choose to add documentation generation based on jsdoc3 (http://usejsdoc.org/#JSDoc3_Tag_Dictionary) to your code.  Executing the
+following commands will add a lightweight requirejs + Express server (https://github.com/chrisfelix82/rexpress) to your workspace.  You can then view
+generated docs at http://localhost:3434 after starting the server.
+
+```
+$ yo chris:docs init
+$ cd ../rexpress
+$ npm install
+$ cd ../<mobile project>
+$ grunt rexpress (starts the express server at port 3434)
+```
+
+You can generate the docs anytime with the following command.  Then visit http://localhost:3434/
+
+```
+$ grunt jsdoc
+```
+
+
+
 ### jQuery mobile + Angular
 
 Create a new Worklight project.  Then issue the following commands.  This will stub out a JQuery mobile app that uses Angular for data binding.
@@ -91,16 +111,35 @@ You can create a new view with.  NOTE: View will be appended to the end of the v
 $ yo chris:view <name of view e.g. home>
 ```
 
-You can start a rapid dev env by issuing the following command.  This will watch the files in your custom packages e.g. commonapp, iphoneapp.  Once a save is done, the files will be linted, and the browser will issue a live reload:
+You can start a rapid dev env by issuing the following command.  This will watch the files in your custom packages e.g. commonapp, iphoneapp.  Once a save is done, the files will be linted, and the browser will issue a live reload.
+Unit tests will also be run (if any):
 
 ```
-$ grunt watch
+$ grunt dev
 ```
 
 You can choose to build the project using requirejs with.  See the grunt-config.json file for individual targets if you need:
 
 ```
 $ grunt
+```
+
+You can choose to add documentation generation based on jsdoc3 (http://usejsdoc.org/#JSDoc3_Tag_Dictionary) to your code.  Executing the
+following commands will add a lightweight requirejs + Express server (https://github.com/chrisfelix82/rexpress) to your workspace.  You can then view
+generated docs at http://localhost:3434 after starting the server.
+
+```
+$ yo chris:docs init
+$ cd ../rexpress
+$ npm install
+$ cd ../<mobile project>
+$ grunt rexpress (starts the express server at port 3434)
+```
+
+You can generate the docs anytime with the following command.  Then visit http://localhost:3434/
+
+```
+$ grunt jsdoc
 ```
 
 ### Notes
