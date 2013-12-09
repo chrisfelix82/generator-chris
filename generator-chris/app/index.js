@@ -27,8 +27,18 @@ ChrisGenerator.prototype.askFor = function askFor() {
   var prompts = [
       {
           name : 'framework',
-          message: 'What framework are you using? jqm-angular | dojox-app',
-          default: "jqm-angular"
+          message: 'What framework are you using?',
+          default: "jqm-angular",
+          type: 'list',
+          choices: [
+          {
+              name : "jQuery Mobile with AngularJS",
+              value : "jqm-angular"
+          },
+          {
+              name : "dojox/app",
+              value : "dojox-app"
+          }]
       }];
 
   this.prompt(prompts, function (props) {
