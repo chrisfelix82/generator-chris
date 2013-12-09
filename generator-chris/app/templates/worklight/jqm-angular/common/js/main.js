@@ -21,11 +21,13 @@ function wlCommonInit(){
 	
 	// Common initialization code goes here
 	//Once the device is ready, we need to load our libraries
-	require(["commonapp/app"],function(app){
-		console.debug("App init complete");
-	    //Always use app.route(viewController,viewTemplate) to navigate instead of using hrefs
-	    app.route("HomeView");
-	});
+    require(["js/require-main"],function(){
+        require(["commonapp/app"],function(app){
+            console.debug("App init complete");
+            //Always use app.route(viewController,viewTemplate) to navigate instead of using hrefs
+            app.route("HomeView");
+        });
+    });
 	   
 
 }

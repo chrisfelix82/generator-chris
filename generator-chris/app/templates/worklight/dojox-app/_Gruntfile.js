@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+    require('time-grunt')(grunt);
 	var config = grunt.file.readJSON('grunt-config.json');
 	config.pkg = grunt.file.readJSON('package.json');
 	config.requirejs.options.fileExclusionRegExp =  /native|\.min|\.xml|\.txt|\.zip*/;
