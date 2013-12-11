@@ -58,24 +58,14 @@ define(["jquery","jquerymobile","text!./config.json","angular"],function($,jqm,c
                 options = {};
             }//end if
             options.changeHash = false;
-            console.debug(routeName,$.mobile.activePage.data("url"));
-            var currentUrl = $.mobile.activePage.data('url');
-            var numJumpsToGetToRoot = 0;
-            var prePath = "";
-            if(currentUrl.indexOf("index.html") < 0){
-                currentUrl = currentUrl.substring(currentUrl.indexOf('default/') + 8);
-                numJumpsToGetToRoot = currentUrl.match(/\//g).length;
-            }//end if
+            //console.debug("Current data url",$.mobile.activePage.data("url"));
 
-            for(var x = 0; x < numJumpsToGetToRoot; x++){
-                prePath = prePath + "../";
-            }//end for
+            //TODO: If you are using worklight < 6.1, the name of index.html is the name of your worklight application
+            var baseUrl = window.location.href.substring(0,window.location.href.lastIndexOf("index.html"));
+            var template = baseUrl + route.template;
 
-            var ctrl = prePath + route.controller;
-            var template = prePath + route.template;
-            console.debug("Switching to controller",ctrl,"template",template);
             var _this = this;
-            require([ctrl],function(ctrl){
+            require([route.controller],function(ctrl){
                 if(options.data){
                     //Add the data object to the app's view params
                     _this.viewParams = options.data;
@@ -83,6 +73,7 @@ define(["jquery","jquerymobile","text!./config.json","angular"],function($,jqm,c
                     _this.viewParams = {};
                 }//end if
                 delete options.data;
+                console.debug("Switching to controller",route.controller,"template",template);
                 $.mobile.changePage(template,options);
             });
         }

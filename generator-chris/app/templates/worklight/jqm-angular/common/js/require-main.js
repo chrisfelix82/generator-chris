@@ -1,7 +1,8 @@
 define.amd.jQuery = true;
+var appBaseUrl = window.location.href.substring(0,window.location.href.lastIndexOf("index.html"));
 require.config({
 
-    baseUrl: ".",
+    baseUrl: appBaseUrl,
 
     paths: {
         jquery  : "js/lib/jquery/jquery",
