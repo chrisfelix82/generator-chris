@@ -34,9 +34,14 @@
     "node": ">=0.8.0",
     "npm": ">=1.2.10"
   },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ]
+    "licenses": [
+        {
+            "type": "BSD",
+            "url": "https://github.com/dojo/dojo/blob/master/LICENSE#L13"
+        },
+        {
+            "type": "AFLv2.1",
+            "url": "https://github.com/dojo/dojo/blob/master/LICENSE#L43"
+        }
+    ]
 }
