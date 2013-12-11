@@ -61,7 +61,7 @@ $ yo chris:view <name of view e.g. home>
 You can start a rapid dev env by issuing the following command.  This will watch the files in your custom packages e.g. commonapp, iphoneapp.  Once a save is done, the files will be linted, and the browser will issue a live reload:
 
 ```
-$ grunt watch
+$ grunt dev
 ```
 
 You can choose to build the project using requirejs with the following command.  See the grunt-config.json file for individual targets if you need:

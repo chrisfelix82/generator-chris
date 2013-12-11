@@ -62,8 +62,36 @@ module.exports = function(grunt) {
                  opts: {stdio: 'inherit'}
          },grunt.task.current.async());
     });
+
+    grunt.registerTask('deployWAR_Liberty','Deploy Worklight WAR',function(){
+        grunt.util.spawn({
+            cmd : 'ant',
+            args: ['deployWAR_Liberty','-f','../Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
+    });
+
+    grunt.registerTask('configure_DB2','Creates the databases required by Worklight on DB2',function(){
+        grunt.util.spawn({
+            cmd : 'ant',
+            args: ['configure_DB2','-f','../Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
+    });
+
+    grunt.registerTask('undeployWAR_Liberty','Uninstall Worklight WAR',function(){
+        grunt.util.spawn({
+            cmd : 'ant',
+            args: ['undeployWAR_Liberty','-f','../Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
+    });
     //end Worklight tasks
 
-    grunt.registerTask('default', ['jshint','requirejs','clean','copy','clean:themes','copy:themes','buildwlapp','buildadapters']);
+    //Developer tasks
+    grunt.registerTask('dev',['watch']);
 
+    //Build & deploy tasks
+    grunt.registerTask('default', ['jshint','jsdoc','requirejs','clean','copy','clean:themes','copy:themes','buildwlapp','buildadapters','deployadapters','deploywlapp']);
+    grunt.registerTask('updateWAR',['undeployWAR_Liberty','buildWAR','deployWAR_Liberty']);
 };

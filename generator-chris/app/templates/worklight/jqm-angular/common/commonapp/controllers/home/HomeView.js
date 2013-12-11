@@ -10,26 +10,17 @@ define(["jquery","angular","commonapp/app","commonapp/Store",
          $(document).on("pageshow","[data-ng-controller='HomeView']",function(page){
              console.debug("show");
              $scope.items.push(new Date());
-
+     
              $scope.$apply();
          });
          $(document).on("pagehide","[data-ng-controller='HomeView']",function(){
              console.debug("hide");
          });
-         $(document).on("pagebeforeshow","[data-ng-controller='HomeView']",function(){
-             console.debug("before show");
-
-         });
-         $(document).on("pagebeforehide","[data-ng-controller='HomeView']",function(){
-             console.debug("before hide");
-         });
-
-         $scope.anotherView = function(){
-               app.route("AnotherView",{transition: "slide"});
-         };
+        
          
-         $scope.clickItem = function(item){
-              alert(item);
+         $scope.clickItem = function(index){
+        	 //Take the index, and tell the detail view modify the element at that index
+        	 app.route("AnotherView",{transition: "slide", data: {index: index}});
          };
 
      }]);

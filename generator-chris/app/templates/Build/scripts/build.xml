@@ -18,7 +18,17 @@
 		<property name="ios_projectName" value="${worklightProjectName}${worklightAppName}${ios_env_uppercase}" />
 		<property name="worklightDir" value="${basedir}/../../${worklightProjectName}/apps/${worklightAppName}" />
 		<property name="worklightBuildOutputFolder" value="${basedir}/../output/worklightbuild" />
-		
+
+        <!-- Configuring the Worklight server and databases are one time tasks. TODO: Add your environment values here -->
+        <property name="dbServer" value="" />
+        <property name="dbUser" value="" />
+        <property name="dbPassword" value="" />
+        <property name="dbaUser" value="" />
+        <property name="dbaPassword" value="" />
+        <property name="dbDriverClasspath" value="" />
+        <property name="libertyInstallDir" value="" />
+        <property name="libertyServer" value="" />
+
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
 			<classpath>
 				<pathelement location="${basedir}/../lib/ant-contrib-1.0b3.jar" />
@@ -27,15 +37,14 @@
 
 		<taskdef resource="com/worklight/ant/defaults.properties">
 			<classpath>
-				<pathelement location="${basedir}/../lib/worklight-build-tools.jar" />
+				<pathelement location="${basedir}/../lib/worklight-ant-builder.jar" />
 			</classpath>
 		</taskdef>
-		
-		<path id="server-classpath">
-			<fileset dir="${worklightDir}/../../server/lib">
-				<include name="*.jar" />
-			</fileset>
-		</path>
+        <taskdef resource="com/worklight/ant/defaults.properties">
+            <classpath>
+                <pathelement location="${basedir}/../lib/worklight-ant-deployer.jar" />
+            </classpath>
+        </taskdef>
 
 	</target>
 
@@ -128,6 +137,112 @@
 			classesfolder="${worklightBuildOutputFolder}/classes">
 		</war-builder>
 	</target>
+
+    <!-- =========================================================================== -->
+    <!-- Targets: deployWAR_Liberty -->
+    <!-- =========================================================================== -->
+    <target name="deployWAR_Liberty" depends="init">
+        <configureapplicationserver contextroot="/${worklightProjectName}">
+            <project warfile="${basedir}/../output/worklightbuild/${worklightProjectName}.war"/>
+
+            <!-- Here you can define values which override the
+                 default values of Worklight configuration properties -->
+            <property name="serverSessionTimeout" value="10"/>
+
+            <applicationserver>
+                <websphereapplicationserver installdir="${libertyInstallDir}" profile="Liberty">
+                    <server name="${libertyServer}"/>
+                </websphereapplicationserver>
+            </applicationserver>
+            <database kind="Worklight">
+                <db2 database="WRKLGHT" server="${dbServer}" user="${dbUser}" password="${dbPassword}"></db2>
+                <driverclasspath>
+                    <fileset dir="${basedir}/../lib">
+                        <include name="db2jcc4.jar"/>
+                        <include name="db2jcc_license_*.jar"/>
+                    </fileset>
+                </driverclasspath>
+            </database>
+            <database kind="WorklightReports">
+                <db2 database="WLREPORT" server="${dbServer}" user="${dbUser}" password="${dbPassword}"></db2>
+                <driverclasspath>
+                    <fileset dir="${basedir}/../lib">
+                        <include name="db2jcc4.jar"/>
+                        <include name="db2jcc_license_*.jar"/>
+                    </fileset>
+                </driverclasspath>
+            </database>
+        </configureapplicationserver>
+    </target>
+
+    <!-- =========================================================================== -->
+    <!-- Targets: undeployWAR_Liberty -->
+    <!-- =========================================================================== -->
+    <target name="undeployWAR_Liberty" depends="init">
+        <unconfigureapplicationserver contextroot="/${worklightProjectName}">
+            <project warfile="${basedir}/../output/worklightbuild/${worklightProjectName}.war"/>
+
+            <!-- Here you can define values which override the
+                 default values of Worklight configuration properties -->
+            <property name="serverSessionTimeout" value="10"/>
+
+            <applicationserver>
+                <websphereapplicationserver installdir="${libertyInstallDir}" profile="Liberty">
+                    <server name="${libertyServer}"/>
+                </websphereapplicationserver>
+            </applicationserver>
+            <database kind="Worklight">
+                <db2 database="WRKLGHT" server="${dbServer}" user="${dbUser}" password="${dbPassword}"></db2>
+                <driverclasspath>
+                    <fileset dir="${basedir}/../lib">
+                        <include name="db2jcc4.jar"/>
+                        <include name="db2jcc_license_*.jar"/>
+                    </fileset>
+                </driverclasspath>
+            </database>
+            <database kind="WorklightReports">
+                <db2 database="WLREPORT" server="${dbServer}" user="${dbUser}" password="${dbPassword}"></db2>
+                <driverclasspath>
+                    <fileset dir="${basedir}/../lib">
+                        <include name="db2jcc4.jar"/>
+                        <include name="db2jcc_license_*.jar"/>
+                    </fileset>
+                </driverclasspath>
+            </database>
+        </unconfigureapplicationserver>
+    </target>
+
+    <!-- =========================================================================== -->
+    <!-- Targets: configureDB2 -->
+    <!-- =========================================================================== -->
+    <target name="configure_DB2" depends="init">
+        <configuredatabase kind="Worklight">
+            <db2 database="WRKLGHT" server="${dbServer}"
+                 user="${dbUser}" password="${dbPassword}">
+                <dba user="${dbaUser}" password="${dbaPassword}"/>
+            </db2>
+            <driverclasspath>
+                <fileset dir="${basedir}/../lib">
+                    <include name="db2jcc4.jar"/>
+                    <include name="db2jcc_license_*.jar"/>
+                </fileset>
+            </driverclasspath>
+        </configuredatabase>
+
+        <configuredatabase kind="WorklightReports">
+            <db2 database="WLREPORT" server="${dbServer}"
+                 user="${dbUser}" password="${dbPassword}">
+                <dba user="${dbaUser}" password="${dbaPassword}"/>
+            </db2>
+            <driverclasspath>
+                <fileset dir="${basedir}/../lib">
+                    <include name="db2jcc4.jar"/>
+                    <include name="db2jcc_license_*.jar"/>
+                </fileset>
+            </driverclasspath>
+        </configuredatabase>
+
+    </target>
 
 
 </project>

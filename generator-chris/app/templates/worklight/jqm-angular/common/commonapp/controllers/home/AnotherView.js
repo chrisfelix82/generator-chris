@@ -6,14 +6,15 @@ define(["jquery","angular","commonapp/app","commonapp/Store",
 
     	 $scope.text = nls;
     	 
-         $(document).on("pageshow","[data-ng-controller='AnotherView']",function(){
-             console.debug("show another view");
-             $scope.name = Store.items[0];
+         $(document).on("pageshow","[data-ng-controller='AnotherView']",function(p,data){
+            console.debug("show another view");
+            console.warn(app.viewParams);
+            $scope.name = Store.items[app.viewParams.index];
 
-             $scope.$apply();
+            $scope.$apply();
          });
         $scope.home = function(){
-            Store.items[0] = $scope.name;
+            Store.items[app.viewParams.index] = $scope.name;
             app.route("HomeView",{transition: "slide",reverse: true});
         };
      }]);

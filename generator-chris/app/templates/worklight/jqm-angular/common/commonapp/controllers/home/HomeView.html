@@ -15,9 +15,9 @@
 
     <div data-role="content">
         <ul data-role="listview" data-filter="true">
-        <li data-ng-repeat="item in items"><a data-ng-click="clickItem(item)">{{item}}</a></li>
+        <li data-ng-repeat="item in items"><a data-ng-click="clickItem($index)">{{item | date:'MM/dd/yyyy @ h:mma'}}</a></li>
         </ul>
         <br/><br/>
-        <a data-role="button" data-ng-click="anotherView()">Next</a>
+      
    </div>
 </div>

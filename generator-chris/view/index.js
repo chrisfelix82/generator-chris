@@ -182,14 +182,19 @@ ViewGenerator.prototype._createDojoView = function _createDojoView(pkg) {
 		var parentDir = path[path.length - 2];
 		console.log("Adding component css file to " + parentDir +"_component.css");
 
-        var appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
+        var appCSS;
+        try{
+            appCSS = this.readFileAsString(pkg + "/../" + parentDir + ".css");
+            if(appCSS.indexOf(this.component + "/" + this.component + "_component.css") === -1){
+                //only append if import does not exist
+                appCSS += "\n@import url('" + this.component + "/" + this.component + "_component.css');";
+                this.write(pkg + "/../" + parentDir + ".css",appCSS);
+            }//end if
+        }catch(e){
+            console.log("Could not read",pkg + "/../" + parentDir + ".css","Please create manually.");
+        }//end try
 
 
-		if(appCSS.indexOf(this.component + "/" + this.component + "_component.css") === -1){
-			//only append if import does not exist
-			appCSS += "\n@import url('" + this.component + "/" + this.component + "_component.css');";
-			this.write(pkg + "/../" + parentDir + ".css",appCSS);
-		}//end if
 	}//end if 
 	
 	//now we need to write the new view to the config.json file
