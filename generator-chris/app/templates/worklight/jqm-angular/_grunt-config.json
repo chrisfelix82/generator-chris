@@ -44,11 +44,7 @@
 	},
 	"requirejs": {
 		"options": {
-			"mainConfigFile": "<%= commonDir %>/js/require-main.js",
-			"optimizeCss": "standard",
-			"paths": {
-				"commonapp": "common/commonapp"
-			}
+			"optimizeCss": "standard"
 		},
 		"commonapp": {
 			"options": {

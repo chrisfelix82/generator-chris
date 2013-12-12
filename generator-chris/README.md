@@ -142,6 +142,40 @@ You can generate the docs anytime with the following command.  Then visit http:/
 $ grunt jsdoc
 ```
 
+### Tasks to help you set-up an IBM Worklight test server
+
+If you have purchased the production version of IBM Worklight, then the following grunt tasks can help you
+to quickly set-up an integration test server assuming you are using WebSphere Liberty and DB2.
+
+This command sets up the Worklight and Worklight reports databases on DB2.  Before running this command, ensure
+that the correct property values are set in Build/scripts/build.xml.
+
+```
+$ grunt configure_DB2
+```
+
+This command builds the Worklight WAR that contains the administration console.
+
+```
+$ grunt buildWAR
+```
+
+This command then deploys the WAR to the Liberty server.
+
+```
+$ grunt deployWAR_Liberty
+```
+
+If you need to update the WAR for whatever reason (e.g. you change authenticationConfig.xml), then the following
+command will update the WAR.  It will uninstall the WAR, build a new one and then deploy it to the Liberty server.
+You will need to restart the server every time you deploy a new WAR.
+
+```
+$ grunt updateWAR
+```
+
+
+
 ### Notes
 
 A project is created called "Build" in the workspace.  If you are using Eclipse, this project will not show up unless you create a new general project in the workspace with the name of "Build".  Once the project is visible, read the README.md file under Build/lib.  If you wish to use the grunt build, then you will have to have the IBM Worklight jars that ship with the production version of the product.  They are not distributed with this generator due to licensing restrictions.
@@ -149,6 +183,8 @@ A project is created called "Build" in the workspace.  If you are using Eclipse,
 If you wish to drive the build through RTC, the easiest way is to create a command line based jazz build definition.  Set the working directory to be your Worklight project's directory, and the command should simply be "grunt".  This is the same as you would do manually from the command line.  Of course the Workight tasks depend on ant and node, so you will have to install those on the build engine machine.
 
 The build does not produce layers, it only minifies and obfuscates the source files.  If you are use to doing a dojox/app custom build, then you will have to set one up manually.  This generator does not deal with that.  If you are using dojox/app, you may consider using "yo dawg" - https://github.com/chrisfelix82/dawg, which has a build that is specifically tailored for custom dojo apps.
+
+If you decide to use the documentation server (i.e. through yo chris:docs init), then you need to create a general project in eclipse called rexpress.  This is because Eclipse does not refresh the project by that name that gets created by the generator.
 
 
 ### Getting To Know Yeoman
