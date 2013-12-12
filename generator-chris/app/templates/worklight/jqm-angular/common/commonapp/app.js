@@ -34,6 +34,10 @@ define(["jquery","jquerymobile","text!./config.json","angular"],function($,jqm,c
     return {
         currentRoute : null,
         previousRoute : null,
+        currentRouteName : null,
+        previousRouteName : null,
+        backTransition : null,
+        currentTransition: null,
         viewParams : {},
 
 
@@ -51,8 +55,14 @@ define(["jquery","jquerymobile","text!./config.json","angular"],function($,jqm,c
                 console.debug("Current route",this.currentRoute,"equals previous route, no-op");
                 return;
             }//end if
+            if(!options){options = {};}
             this.previousRoute = this.currentRoute;
             this.currentRoute = appConfig.routes[routeName].template;
+
+            this.previousRouteName = this.currentRouteName;
+            this.backTransition = this.currentTransition;
+            this.currentRouteName = routeName;
+            this.currentTransition = options.transition ? options.transition : "none";
 
             if(!options){
                 options = {};
@@ -76,6 +86,19 @@ define(["jquery","jquerymobile","text!./config.json","angular"],function($,jqm,c
                 console.debug("Switching to controller",route.controller,"template",template);
                 $.mobile.changePage(template,options);
             });
+        },
+
+        goBack : function(options){
+            if(this.previousRouteName !== null){
+                if(!options){options = {};}
+                if(!options.transition){
+                    options.transition = this.backTransition;
+                    options.reverse = true;
+                }//end if
+                this.route(this.previousRouteName,options);
+            }else{
+                console.warn("No view to go back to.  previousRouteName is null");
+            }//end if
         }
     };
 
