@@ -19,11 +19,11 @@ define(["text!./config.json","angular","jquery"],function(configjson,angular,$){
 	
 	app.factory("CtrlLoader",["$q",function($q){
 		return function(){  
-			this.load = function(ctrl,$controllerProvider,$controller){
+			this.load = function(ctrl,controllerProvider){
 				var def = $q.defer();
 				if(!(ctrl in controllers)){
 					require([ctrl],function(c){	
-						$controllerProvider.register(ctrl,c);
+						controllerProvider.register(ctrl,c);
 						controllers[ctrl] = true;//TODO: could change this to have a pointer to the controller function
 						def.resolve();
 						console.debug("Registered new controller on demand",ctrl);
@@ -38,18 +38,18 @@ define(["text!./config.json","angular","jquery"],function(configjson,angular,$){
 		};		
 	}]);
 	 
-	var registerRoute = function(routes,route,$routeProvider,$controllerProvider){
+	var registerRoute = function(routes,route,routeProvider,controllerProvider){
 		if(routes[route].controller){
 			routes[route].resolve = ['CtrlLoader',function(CtrlLoader){
 				var l = new CtrlLoader();
-				return l.load(routes[route].controller,$controllerProvider);
+				return l.load(routes[route].controller,controllerProvider);
 			}];
 		}//end if
 		
 		if(route === "otherwise"){
-			$routeProvider.otherwise(routes[route]);
+			routeProvider.otherwise(routes[route]);
 		}else{
-			$routeProvider.when(route,routes[route]);
+			routeProvider.when(route,routes[route]);
 		}//end if
 		
 	};

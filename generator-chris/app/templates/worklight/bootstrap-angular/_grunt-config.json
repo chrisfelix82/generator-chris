@@ -31,14 +31,14 @@
 	},
 	
 	"clean": {
-        "commonapp" : ["<%= commonDir %>/commonapp"]
+        "commonapp" : ["<%= commonDir %>/commonapp/**/*_component.css","<%= commonDir %>/commonapp/**/css"]
     },
 	
 	"copy": {
 		"commonapp": {
 			"expand": true,
 			"cwd": "../<%= projectName %>Build/output/requirejsBuild/commonapp",
-			"src": ["**","!**/css/**","!**/*_component.css"],
+			"src": ["**","!**/css/**","!**/*_component.css","!app.js"],
 			"dest": "<%= commonDir %>/commonapp"
 		}
 	},
