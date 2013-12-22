@@ -91,7 +91,7 @@ $ grunt jsdoc
 
 
 
-### jQuery mobile + Angular or Twitter Bootstrap with Angular
+### jQuery mobile + Angular or Twitter Bootstrap + Angular
 
 Create a new Worklight project.  Then issue the following commands.  This will stub out a JQuery mobile app that uses Angular for data binding.
 
