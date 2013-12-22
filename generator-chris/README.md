@@ -34,6 +34,7 @@ This generator is based on previous work that I have done (see: yo dawg).  I tho
 What can you do?  
 1. Scaffold a dojox/app based IBM Worklight project 
 2. Scaffold a jQuery mobile with Angularjs based IBM Worklight project
+3. Scaffold a Twitter Bootstrap with Angularjs based IBM Worklight project
 
 ## IBM Worklight
 
@@ -90,7 +91,7 @@ $ grunt jsdoc
 
 
 
-### jQuery mobile + Angular
+### jQuery mobile + Angular or Twitter Bootstrap with Angular
 
 Create a new Worklight project.  Then issue the following commands.  This will stub out a JQuery mobile app that uses Angular for data binding.
 
