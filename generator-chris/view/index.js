@@ -145,13 +145,26 @@ ViewGenerator.prototype._createJQMAngularView = function _createJQMAngularView(p
 	}//end if
 
     //Add the new view to the config.json file
-    if(!(this.fileName in this.appConfig.routes)){
-        this.appConfig.routes[this.fileName] = {
-          "template" :  this.packageName + "/" + this.fileName + ".html",
-          "controller" : this.packageName + "/" + this.fileName
-        };
-        this.write(this.commonDir + "/commonapp/config.json",JSON.stringify(this.appConfig,null,4));
+
+    if(this.frameworkm === "jqm-angular"){
+        if(!(this.fileName in this.appConfig.routes)){
+            this.appConfig.routes[this.fileName] = {
+                "template" :  this.packageName + "/" + this.fileName + ".html",
+                "controller" : this.packageName + "/" + this.fileName
+            };
+            this.write(this.commonDir + "/commonapp/config.json",JSON.stringify(this.appConfig,null,4));
+        }//end if
+    }else{
+        //assume bootstrap-angular
+        if(!("/" + this.fileName in this.appConfig.routes)){
+            this.appConfig.routes["/" + this.fileName] = {
+                "templateUrl" :  this.packageName + "/" + this.fileName + ".html",
+                "controller" : this.packageName + "/" + this.fileName
+            };
+            this.write(this.commonDir + "/commonapp/config.json",JSON.stringify(this.appConfig,null,4));
+        }//end if
     }//end if
+
 };
 
 

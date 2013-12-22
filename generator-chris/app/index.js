@@ -38,6 +38,10 @@ ChrisGenerator.prototype.askFor = function askFor() {
           {
               name : "dojox/app",
               value : "dojox-app"
+          },
+          {
+              name : "Twitter Bootstrap with AngularJS",
+              value : "bootstrap-angular"
           }]
       }];
 
@@ -45,18 +49,6 @@ ChrisGenerator.prototype.askFor = function askFor() {
     this.platform = "worklight";//TODO: support cordova later
     this.framework = props.framework;
     this.templateDir = this.platform + "/" + this.framework;
-
-    if(this.framework === "jqm-angular"){
-        this.bowerDeps = JSON.stringify({
-            "jquery-mobile-bower": "~1.3.2",
-            "angular": "~1.2.2",
-            "requirejs": "~2.1.9",
-            "requirejs-i18n": "~2.0.4",
-            "requirejs-text": "~2.0.10"
-        },null,4);
-    }else{
-        this.bowerDeps = JSON.stringify({},null,4);
-    }//end if
 
     if(this.platform === "worklight"){
         this.prompt([
@@ -85,7 +77,7 @@ ChrisGenerator.prototype.app = function app() {
 
   var cb = this.async();
   this.template('_package.json', 'package.json');
-  this.template('_bower.json', 'bower.json');
+  this.template(this.templateDir + '/_bower.json', 'bower.json');
   this.template('_.bowerrc','.bowerrc');
 
   fsextra.copy(this._sourceRoot + "/" + this.templateDir + "/common/commonapp", this.options.env.cwd + "/" + this.commonDir + "/commonapp",function(err){
@@ -102,8 +94,14 @@ ChrisGenerator.prototype.app = function app() {
       this.copy(this.templateDir + "/common/js/main.js",this.commonDir + "/js/main.js");
       //Create top level css imports
       if(!fs.existsSync(this.commonDir + "/css/common.css")){
+          var transitionCss = "";
+          if(this.framework === "bootstrap-angular"){
+              this.copy(this.templateDir + "/css/animate-custom.css",this.commonDir + "/css/animate-custom.css");
+              transitionCss =  this.readFileAsString(path.join(__dirname, '/templates/' + this.platform + "/" + this.framework + "/css/transitions.css"));
+          }//end if
+          this.defaultCss = this.defaultCss + "\n" + transitionCss;
           this.write(this.commonDir + "/css/common.css",this.defaultCss);
-          this.write(this.commonDir + "/css/main.css","@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
+          this.write(this.commonDir + "/css/main.css","@import url('./animate-custom.css');\n@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
       }//end if
   }else{
 	  this.copy(this.templateDir + "/common/js/index.js",this.commonDir + "/js/index.js");
@@ -114,7 +112,7 @@ ChrisGenerator.prototype.app = function app() {
       }//end if
   }//end if
 
-  if(this.framework === "jqm-angular"){
+  if(this.framework === "jqm-angular" || this.framework === "bootstrap-angular"){
 	  this.copy(this.templateDir + "/common/js/require-main.js",this.commonDir + "/js/require-main.js");
   }//end if
   this.copy(this.templateDir + "/common/index.html",this.commonDir + "/index.html");
@@ -125,7 +123,7 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
 
     var cb = this.async();
     //copy build project over
-    fsextra.copy(this._sourceRoot + "/Build", this.options.env.cwd + "/../Build",function(err){
+    fsextra.copy(this._sourceRoot + "/Build", this.options.env.cwd + "/../" + this.projectName + "Build",function(err){
         if (err) {
             console.error("Failed copying Build project" + err);
             cb(err);
@@ -140,7 +138,7 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
     var buildXML = this.readFileAsString(this._sourceRoot + "/Build/scripts/build.xml");
     buildXML = buildXML.replace(/<%= projectName %>/g,this.projectName);
     buildXML = buildXML.replace(/<%= appName %>/g,this.appName);
-    this.write("../Build/scripts/build.xml",buildXML);
+    this.write("../" + this.projectName +"Build/scripts/build.xml",buildXML);
     
     //Save dev environment properties for sub-generators to use
     var o = {
@@ -155,7 +153,7 @@ ChrisGenerator.prototype.gruntFile = function gruntFile() {
 
 ChrisGenerator.prototype.tests = function tests() {
 
-    if(this.framework === "jqm-angular"){
+    if(this.framework === "jqm-angular" || this.framework === "bootstrap-angular"){
         var cb = this.async();
         this.template(this.templateDir + "/_karma.conf.js","karma.conf.js");
         //copy test dir over

@@ -15,6 +15,7 @@ var EnvGenerator = module.exports = function EnvGenerator(args, options, config)
   this.templateDir = this.platform + "/" + this.framework;
   this.appName = this.properties.appName;
   this.commonDir = this.properties.commonDir;
+  this.projectName = this.properties.projectName;
 
   console.log("Working with properties",this.properties);
 };
@@ -36,7 +37,7 @@ EnvGenerator.prototype.files = function files() {
 	this.template(this.templateDir + "/" + "_app.profile.js",this.envPath + "/" + this.name + "app/app.profile.js");
 	this.template(this.templateDir + "/" + "_package.json",this.envPath + "/" + this.name + "app/package.json");
 	this.copy(this.templateDir + "/app.css",this.envPath  + "/" + this.name + "app/" + this.name + "app.css");
-    if(this.platform === "worklight" && this.framework === "jqm-angular"){
+    if(this.platform === "worklight" && (this.framework === "jqm-angular" || this.framework === "bootstrap-angular")){
         this.copy(this.templateDir + "/controllers/controllers_component.css",this.envPath + "/" + this.name + "app/controllers/controllers_component.css");
     }//end if
 };
@@ -63,7 +64,7 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 			var copy = this.gruntConfig.copy;
 			copy[this.name + "app"] = {
 					"expand": true,
-					"cwd": "../Build/output/requirejsBuild/" + this.name + "app",
+					"cwd": "../" + this.projectName + "Build/output/requirejsBuild/" + this.name + "app",
 					"src": ["**","!**/css/**","!**/*_component.css"],
 					"dest": "apps/" + this.appName + "/" + this.name + "/" + this.name + "app"
 				};
@@ -72,7 +73,7 @@ EnvGenerator.prototype.updateGruntConfig = function updateGruntConfig() {
 		   this.gruntConfig.requirejs[this.name + "app"] = {
 				"options": {
 					"baseUrl": "apps/" + this.appName + "/" + this.name + "/" + this.name + "app",
-					"dir": "../Build/output/requirejsBuild/" + this.name + "app"
+					"dir": "../" + this.projectName + "Build/output/requirejsBuild/" + this.name + "app"
 				}
 			};
 

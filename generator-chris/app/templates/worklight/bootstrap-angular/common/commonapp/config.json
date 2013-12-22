@@ -1,0 +1,28 @@
+{
+	"appName" : "app",
+	"appDeps" : [
+		"ngRoute",
+        "ngCookies",
+        "ngResource",
+        "ngAnimate",
+        "ngTouch",
+        "ui.bootstrap"
+	],
+	
+	"forceEnv": false,
+	
+	"routes" : {
+		"/homeView" : {
+			"templateUrl" : "commonapp/controllers/home/HomeView.html",
+			"controller" : "commonapp/controllers/home/HomeView"
+		},
+		"/anotherView/:index" : {
+			"templateUrl" : "commonapp/controllers/home/AnotherView.html",
+			"controller" : "commonapp/controllers/home/AnotherView"
+		},
+		
+		"otherwise" : {
+			"redirectTo" : "/homeView"
+		}
+	}
+}

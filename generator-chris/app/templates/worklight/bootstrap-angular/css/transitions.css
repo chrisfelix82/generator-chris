@@ -1,0 +1,18 @@
+.slideLeft.ng-enter {
+    -webkit-animation: slideInRight 0.5s; /* Safari/Chrome */
+    -webkit-transform:translate3d(0,0,0);
+    display:none;
+}
+
+.slideLeft.ng-enter.ng-enter-active {
+    display:block;
+}
+
+.slideRight.ng-enter {
+    -webkit-animation: slideInLeft 0.5s; /* Safari/Chrome */
+    display:none;
+}
+
+.slideRight.ng-enter.ng-enter-active {
+    display:block;
+}

@@ -2,6 +2,8 @@ module.exports = function(grunt) {
 
     require('time-grunt')(grunt);
 	var config = grunt.file.readJSON('grunt-config.json');
+    var genConfig = grunt.file.readJSON(".generator-chris");
+    var projectName = genConfig.projectName;
 	config.pkg = grunt.file.readJSON('package.json');
 	config.requirejs.options.fileExclusionRegExp =  /native|\.min|\.xml|\.txt|\.zip*/;
     grunt.initConfig(config);
@@ -26,7 +28,7 @@ module.exports = function(grunt) {
     grunt.registerTask('buildwlapp','Build Worklight app .wlapp file',function(){
         grunt.util.spawn({
                  cmd : 'ant',
-                 args: ['buildwlapp','-f','../Build/scripts/build.xml'],
+                 args: ['buildwlapp','-f','../' + projectName + 'Build/scripts/build.xml'],
                  opts: {stdio: 'inherit'}
          },grunt.task.current.async());
     });
@@ -34,7 +36,7 @@ module.exports = function(grunt) {
     grunt.registerTask('deploywlapp','Deploy Worklight app .wlapp file',function(){
         grunt.util.spawn({
                  cmd : 'ant',
-                 args: ['deploywlapp','-f','../Build/scripts/build.xml'],
+                 args: ['deploywlapp','-f','../' + projectName + 'Build/scripts/build.xml'],
                  opts: {stdio: 'inherit'}
          },grunt.task.current.async());
     });
@@ -42,7 +44,7 @@ module.exports = function(grunt) {
     grunt.registerTask('buildadapters','Build Worklight adapters',function(){
         grunt.util.spawn({
                  cmd : 'ant',
-                 args: ['buildadapters','-f','../Build/scripts/build.xml'],
+                 args: ['buildadapters','-f','../' + projectName + 'Build/scripts/build.xml'],
                  opts: {stdio: 'inherit'}
          },grunt.task.current.async());
     });
@@ -50,7 +52,7 @@ module.exports = function(grunt) {
     grunt.registerTask('deployadapters','Deploy Worklight adapters',function(){
         grunt.util.spawn({
                  cmd : 'ant',
-                 args: ['deployadapters','-f','../Build/scripts/build.xml'],
+                 args: ['deployadapters','-f','../' + projectName + 'Build/scripts/build.xml'],
                  opts: {stdio: 'inherit'}
          },grunt.task.current.async());
     });
@@ -58,7 +60,7 @@ module.exports = function(grunt) {
     grunt.registerTask('buildWAR','Build Worklight WAR',function(){
         grunt.util.spawn({
                  cmd : 'ant',
-                 args: ['buildWAR','-f','../Build/scripts/build.xml'],
+                 args: ['buildWAR','-f','../' + projectName + 'Build/scripts/build.xml'],
                  opts: {stdio: 'inherit'}
          },grunt.task.current.async());
     });
@@ -66,7 +68,7 @@ module.exports = function(grunt) {
     grunt.registerTask('deployWAR_Liberty','Deploy Worklight WAR',function(){
         grunt.util.spawn({
             cmd : 'ant',
-            args: ['deployWAR_Liberty','-f','../Build/scripts/build.xml'],
+            args: ['deployWAR_Liberty','-f','../' + projectName + 'Build/scripts/build.xml'],
             opts: {stdio: 'inherit'}
         },grunt.task.current.async());
     });
@@ -74,7 +76,7 @@ module.exports = function(grunt) {
     grunt.registerTask('configure_DB2','Creates the databases required by Worklight on DB2',function(){
         grunt.util.spawn({
             cmd : 'ant',
-            args: ['configure_DB2','-f','../Build/scripts/build.xml'],
+            args: ['configure_DB2','-f','../' + projectName + 'Build/scripts/build.xml'],
             opts: {stdio: 'inherit'}
         },grunt.task.current.async());
     });
@@ -82,7 +84,7 @@ module.exports = function(grunt) {
     grunt.registerTask('undeployWAR_Liberty','Uninstall Worklight WAR',function(){
         grunt.util.spawn({
             cmd : 'ant',
-            args: ['undeployWAR_Liberty','-f','../Build/scripts/build.xml'],
+            args: ['undeployWAR_Liberty','-f','../' + projectName + 'Build/scripts/build.xml'],
             opts: {stdio: 'inherit'}
         },grunt.task.current.async());
     });

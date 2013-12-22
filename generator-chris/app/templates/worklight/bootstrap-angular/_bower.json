@@ -1,0 +1,28 @@
+{
+    "name": "<%= appName %>",
+    "version": "1.0.0",
+    "authors": [],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "apps/<%= appName %>/js/lib",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "requirejs": "~2.1.9",
+        "requirejs-i18n": "~2.0.4",
+        "requirejs-text": "~2.0.10",
+        "angular-cookies": "~1.2.5",
+        "angular-resource": "~1.2.5",
+        "angular-route": "~1.2.5",
+        "angular-bootstrap": "~0.7.0",
+        "jquery": "~2.0.3",
+        "bootstrap": "~3.0.3",
+        "requirejs-domready": "~2.0.1",
+        "angular-animate": "~1.2.5",
+        "angular": "~1.2.6",
+        "angular-touch": "~1.2.6"
+    }
+}
