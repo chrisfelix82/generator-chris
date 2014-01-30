@@ -6,7 +6,7 @@
 
     <div data-role="content">
         <ul data-role="listview" data-filter="true" class="list-group">
-            <li class="list-group-item" data-ng-repeat="item in items"><a data-ng-click="clickItem($index)" href="#/anotherView/{{index}}">{{item | date:'MM/dd/yyyy @ h:mma'}}</a></li>
+            <li class="list-group-item" data-ng-repeat="item in items" data-ng-click="clickItem($index)">{{item | date:'MM/dd/yyyy @ h:mma'}}</li>
         </ul>
         <br/><br/>
    </div>

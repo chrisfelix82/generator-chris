@@ -44,6 +44,15 @@ DocsGenerator.prototype.files = function files() {
         }//end if
         console.log("Success pulling rexpress version: ", this.rexpressVer);
         remote.directory('../' + this.rexpressVer, path.join(this.options.env.cwd, '../rexpress'));
+        this.copy("backend/server.js","../rexpress/backend/server.js");
+        this.copy("frontend/jshint/index.html","../rexpress/frontend/jshint/index.html");
+        this.copy("frontend/jshint/index.js","../rexpress/frontend/jshint/index.js");
+        this.copy("frontend/test/functional/index.html","../rexpress/frontend/test/functional/index.html");
+        this.copy("frontend/test/functional/index.js","../rexpress/frontend/test/functional/index.js");
+        this.copy("frontend/index.html","../rexpress/frontend/index.html");
+        this.copy("frontend/index.js","../rexpress/frontend/index.js");
+        this.copy("bower.json","../rexpress/bower.json");
+
         cb();
     }.bind(this),(this.rexpressVer === "master"));
     console.log("NOTE: Don't forget to do an npm install from within the rexpress project.  Also a bower install if you need to pull in front end libs.  By default, the bower.json file pulls in dojo 1.9");

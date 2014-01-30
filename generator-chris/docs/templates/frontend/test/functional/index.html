@@ -1,0 +1,86 @@
+<html data-ng-app="functionalTestApp">
+<head>
+  <script src="../../jslib/angular/angular.min.js"></script>
+  <link href="../../jslib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../../jslib/bootstrap/dist/js/bootstrap.min.js"></script> 
+  <script src="../../jslib/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="../../jslib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="index.js"></script>
+  <script src="http://localhost:35729/livereload.js"></script>
+</head>
+<body data-ng-controller="IndexPageCtrl">
+ 
+  <h1>Functional Test Results</h1>
+  <div class="progress">
+  	<div class="progress-bar progress-bar-success" style="width: {{passedPct}}%">
+    	<span class="sr-only">{{passedPct}}% of tests passed</span>
+  	</div>
+  	<div class="progress-bar progress-bar-danger" style="width: {{failedPct}}%">
+   	 <span class="sr-only">{{failedPct}}% of tests failed</span>
+  	</div>
+  </div>
+  <span class="label label-success" style="margin-right: 1em">Passed: {{numPassed}}</span>
+  <span class="label label-danger" style="margin-right: 1em">Failed: {{numFailed}}</span>
+  <span class="label label-default" style="margin-right: 1em">Total number of tests run: {{numRun}}</span>
+  <br/><br/>
+  
+  <div data-ng-repeat="test in tests.failed" class="panel panel-danger">
+  	<!-- Default panel contents -->
+  	<div class="panel-heading">FAILED: {{test.description}}</div>
+  	<div class="panel-body">
+    	<div class="row">
+    		<div class="col-md-6">OS:</div>
+    		<div class="col-md-6">{{test.os}}</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">Browser name and version:</div>
+    		<div class="col-md-6">{{test.browser.name}} v{{test.browser.version}}</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">Screenshot:</div>
+    		<div class="col-md-6"><a href="#" data-ng-click="showScreenshot(test.screenShotFile)">show screenshot</a></div>
+    	</div>
+    	<div ng-if="!test.passed">
+      	<div class="row">
+      		<div class="col-md-6">Message:</div>
+    		<div class="col-md-6">{{test.message}}</div>
+      	</div>
+      	<div class="row">
+      		<div class="col-md-6">Trace:</div>
+    		<div class="col-md-6"><a href="#" data-ng-click="showTrace(test.trace)">show trace</a></div>
+      	</div>
+    	</div>
+  	</div>
+  </div>
+  
+   <div data-ng-repeat="test in tests.passed" class="panel panel-success">
+  	<!-- Default panel contents -->
+  	<div class="panel-heading">PASSED: {{test.description}}</div>
+  	<div class="panel-body">
+    	<div class="row">
+    		<div class="col-md-6">OS:</div>
+    		<div class="col-md-6">{{test.os}}</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">Browser name and version:</div>
+    		<div class="col-md-6">{{test.browser.name}} v{{test.browser.version}}</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">Screenshot:</div>
+    		<div class="col-md-6"><a href="#" data-ng-click="showScreenshot(test.screenShotFile)">show screenshot</a></div>
+    	</div>
+    	<div ng-if="!test.passed">
+      	<div class="row">
+      		<div class="col-md-6">Message:</div>
+    		<div class="col-md-6">{{test.message}}</div>
+      	</div>
+      	<div class="row">
+      		<div class="col-md-6">Trace:</div>
+    		<div class="col-md-6"><a href="#" data-ng-click="showTrace(test.trace)">show trace</a></div>
+      	</div>
+    	</div>
+  	</div>
+  </div>
+  
+</body>
+</html>

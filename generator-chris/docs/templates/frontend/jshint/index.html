@@ -1,0 +1,39 @@
+<html data-ng-app="app">
+<head>
+  <script src="../jslib/angular/angular.min.js"></script>
+  <link href="../jslib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../jslib/bootstrap/dist/js/bootstrap.min.js"></script> 
+  <script src="../jslib/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="../jslib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="index.js"></script>
+  <script src="http://localhost:35729/livereload.js"></script>
+</head>
+<body data-ng-controller="appCtrl">
+ 
+  <h1>JSHint Results</h1>
+  
+  <label data-ng-if="errors.length === 0" class="label label-success">All files are lint free!</label>
+  <label data-ng-if="errors.length > 0" class="label label-danger">Files have failed linting!</label>
+  <br/><br/>
+  
+  <div data-ng-repeat="error in errors" class="panel panel-danger">
+  	<!-- Default panel contents -->
+  	<div class="panel-heading">File: {{error.file}}:{{error.error.line}}:{{error.error.character}}</div>
+  	<div class="panel-body">
+    	<div class="row">
+    		<div class="col-md-6">Code:</div>
+    		<div class="col-md-6">{{error.error.code}}</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">Reason:</div>
+    		<div class="col-md-6">{{error.error.reason}}</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">Evidence:</div>
+    		<div class="col-md-6">{{error.error.evidence}} (line: {{error.error.line}} character: {{error.error.character}})</div>
+    	</div>
+  	</div>
+  </div>
+  
+</body>
+</html>

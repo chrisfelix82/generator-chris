@@ -2,7 +2,8 @@
 	"jshint": {
 		"files": ["<%= commonDir %>/commonapp/**/*.js"],
 		"options": {
-			"-W099": true
+			"-W099": true,
+            "reporter" : "JSHintReporter.js"
 		}
 	},
 
@@ -17,7 +18,7 @@
         "dist" : {
             "src": ["<%= commonDir %>/commonapp/**/*.js"],
             "options": {
-                "destination": "../rexpress/frontend"
+                "destination": "../rexpress/frontend/docs"
             }
         }
     },

@@ -1,4 +1,4 @@
 {
 	"name": "commonapp",
-	"dojoBuild": "app.profile.js"
+	"dojoBuild": "app.profile.js" 
 }

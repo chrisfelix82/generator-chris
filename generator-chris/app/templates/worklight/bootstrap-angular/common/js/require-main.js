@@ -62,7 +62,19 @@ require.config({
         	deps: ['angular','bootstrap'],
         	exports: "uiBootstrap"
         }  
-    }
+    },
+    
+    deps : ["ngRoute",
+		    "ngCookies",
+ 		    "ngResource",
+ 		    "ngAnimate",
+ 		    "ngTouch",
+ 		    "ui.bootstrap"
+            ],
+            
+   callback : function(){
+	   require(["commonapp/app"],function(app){console.debug("App init complete!");});
+   }
     
 
 });

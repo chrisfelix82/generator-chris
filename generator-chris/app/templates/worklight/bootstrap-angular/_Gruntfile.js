@@ -1,11 +1,11 @@
 module.exports = function(grunt) {
 
     require('time-grunt')(grunt);
-	var config = grunt.file.readJSON('grunt-config.json');
+    var config = grunt.file.readJSON('grunt-config.json');
     var genConfig = grunt.file.readJSON(".generator-chris");
     var projectName = genConfig.projectName;
-	config.pkg = grunt.file.readJSON('package.json');
-	config.requirejs.options.fileExclusionRegExp =  /native|\.min|\.xml|\.txt|\.zip*/;
+    config.pkg = grunt.file.readJSON('package.json');
+    config.requirejs.options.fileExclusionRegExp =  /native|\.min|\.xml|\.txt|\.zip*/;
     grunt.initConfig(config);
 
     //Load existing tasks
@@ -17,53 +17,46 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-karma');
 
-    grunt.registerTask('rexpress','starts the rexpress server',function(){
-        grunt.util.spawn({
-            cmd : 'node',
-            args: ['../rexpress/app.js'],
-            opts: {stdio: 'inherit'}
-        },grunt.task.current.async());
-    });
-    
+
     //Start Worklight tasks
     grunt.registerTask('buildwlapp','Build Worklight app .wlapp file',function(){
         grunt.util.spawn({
-                 cmd : 'ant',
-                 args: ['buildwlapp','-f','../' + projectName + 'Build/scripts/build.xml'],
-                 opts: {stdio: 'inherit'}
-         },grunt.task.current.async());
+            cmd : 'ant',
+            args: ['buildwlapp','-f','../' + projectName + 'Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
     });
-    
+
     grunt.registerTask('deploywlapp','Deploy Worklight app .wlapp file',function(){
         grunt.util.spawn({
-                 cmd : 'ant',
-                 args: ['deploywlapp','-f','../' + projectName + 'Build/scripts/build.xml'],
-                 opts: {stdio: 'inherit'}
-         },grunt.task.current.async());
+            cmd : 'ant',
+            args: ['deploywlapp','-f','../' + projectName + 'Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
     });
-    
+
     grunt.registerTask('buildadapters','Build Worklight adapters',function(){
         grunt.util.spawn({
-                 cmd : 'ant',
-                 args: ['buildadapters','-f','../' + projectName + 'Build/scripts/build.xml'],
-                 opts: {stdio: 'inherit'}
-         },grunt.task.current.async());
+            cmd : 'ant',
+            args: ['buildadapters','-f','../' + projectName + 'Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
     });
 
     grunt.registerTask('deployadapters','Deploy Worklight adapters',function(){
         grunt.util.spawn({
-                 cmd : 'ant',
-                 args: ['deployadapters','-f','../' + projectName + 'Build/scripts/build.xml'],
-                 opts: {stdio: 'inherit'}
-         },grunt.task.current.async());
+            cmd : 'ant',
+            args: ['deployadapters','-f','../' + projectName + 'Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
     });
-    
+
     grunt.registerTask('buildWAR','Build Worklight WAR',function(){
         grunt.util.spawn({
-                 cmd : 'ant',
-                 args: ['buildWAR','-f','../' + projectName + 'Build/scripts/build.xml'],
-                 opts: {stdio: 'inherit'}
-         },grunt.task.current.async());
+            cmd : 'ant',
+            args: ['buildWAR','-f','../' + projectName + 'Build/scripts/build.xml'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
     });
 
     grunt.registerTask('deployWAR_Liberty','Deploy Worklight WAR',function(){
@@ -92,7 +85,21 @@ module.exports = function(grunt) {
     //end Worklight tasks
 
     //Developer tasks
+    grunt.registerTask('rexpress','starts the rexpress server',function(){
+        grunt.util.spawn({
+            cmd : 'node',
+            args: ['../rexpress/app.js'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
+    });
     grunt.registerTask('dev',['karma:unit:start','watch']);
+    grunt.registerTask('functest',"Run protractor functional tests. Requires protractor to be installed from npm.",function(){
+        grunt.util.spawn({
+            cmd : 'protractor',
+            args: ['protractorConf.js'],
+            opts: {stdio: 'inherit'}
+        },grunt.task.current.async());
+    });
 
     //Build & deploy tasks
     grunt.registerTask('default', ['jshint','jsdoc','karma:unit','requirejs','clean','copy','buildwlapp','buildadapters','deployadapters','deploywlapp']);

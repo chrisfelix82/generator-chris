@@ -11,11 +11,11 @@ define(["commonapp/app",
             $scope.index = current.params.index;
             //$scope.$apply();
          });
-
+  
         $scope.home = function(){
             Store.items[$scope.index] = $scope.name;
             
-            app.transition("slideRight");
+            app.setTransition("slideRight");
         };
      }];
 

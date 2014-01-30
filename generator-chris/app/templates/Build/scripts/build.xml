@@ -3,7 +3,14 @@
 <project name="build" default="daily" basedir=".">
 
 	<target name="init">
-		
+
+        <!--
+        For RTC build definition use, modify the properties below to match your integration environment.  Usually you only need
+        to have an two properties defined in your Jazz Build Engine command line definition.
+        buildDir - The directory on the build machine where you would like to place the source code for your project
+        tasks - the grunt tasks that your would like to run (by default 'default' is run.  see Gruntfile.js for more details on the tasks that are run)
+        -->
+
 		<property name="ios_env" value="iphone" />
 		<property name="ios_env_uppercase" value="Iphone" />
 
@@ -12,7 +19,6 @@
 		<property name="worklightAppVersion" value="1.0" />
 		<property name="worklightEnvironments" value="common" />
 		<property name="worklightAdapters" value="" />
-		<property name="buildEnvironment" value="prod" />
 		<property name="worklightServer" value="http://localhost:10080/<%= projectName %>" />
 		
 		<property name="ios_projectName" value="${worklightProjectName}${worklightAppName}${ios_env_uppercase}" />

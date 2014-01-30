@@ -19,6 +19,7 @@ module.exports = function(config) {
       {pattern: 'test/unit/**/*Spec.js', included: false}, 
       {pattern: '<%= commonDir %>/commonapp/**/*.js', included: false},
       {pattern: '<%= commonDir %>/commonapp/**/*.json', included: false},
+      {pattern: '<%= commonDir %>/commonapp/**/*.html', watched: true, included: false, served: true},
       'test/test-main.js'
     
     ],
@@ -33,8 +34,19 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['progress'],
+    reporters: ['progress','growl','html','coverage'],
 
+    preprocessors : {
+        '<%= commonDir %>/commonapp/*.js': ['coverage'],
+        '**/*.html': []
+    },
+    coverageReporter : {
+        type : 'html',
+        dir : '../rexpress/frontend/test/coverage/'
+    },
+    htmlReporter: {
+        outputFile: '../rexpress/frontend/test/unit/index.html'
+    },
 
     // web server port
     port: 9876,

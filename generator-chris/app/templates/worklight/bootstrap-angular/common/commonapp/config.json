@@ -1,13 +1,11 @@
 {
 	"appName" : "app",
-	"appDeps" : [
-		"ngRoute",
-        "ngCookies",
-        "ngResource",
-        "ngAnimate",
-        "ngTouch",
-        "ui.bootstrap"
-	],
+	"appDeps" : ["ngRoute",
+     		     "ngCookies",
+     		     "ngResource",
+     		     "ngAnimate",
+     		     "ngTouch",
+     		     "ui.bootstrap"],
 	
 	"forceEnv": false,
 	

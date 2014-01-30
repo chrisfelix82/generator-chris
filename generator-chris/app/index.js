@@ -28,9 +28,13 @@ ChrisGenerator.prototype.askFor = function askFor() {
       {
           name : 'framework',
           message: 'What framework are you using?',
-          default: "jqm-angular",
+          default: "bootstrap-angular",
           type: 'list',
           choices: [
+          {
+                  name : "Twitter Bootstrap with AngularJS",
+                  value : "bootstrap-angular"
+          },
           {
               name : "jQuery Mobile with AngularJS",
               value : "jqm-angular"
@@ -38,10 +42,6 @@ ChrisGenerator.prototype.askFor = function askFor() {
           {
               name : "dojox/app",
               value : "dojox-app"
-          },
-          {
-              name : "Twitter Bootstrap with AngularJS",
-              value : "bootstrap-angular"
           }]
       }];
 
@@ -97,11 +97,13 @@ ChrisGenerator.prototype.app = function app() {
           var transitionCss = "";
           if(this.framework === "bootstrap-angular"){
               this.copy(this.templateDir + "/css/animate-custom.css",this.commonDir + "/css/animate-custom.css");
+              this.copy(this.templateDir + "/JSHintReporter.js","JSHintReporter.js");
+              this.copy(this.templateDir + "/protractorConf.js","protractorConf.js");
               transitionCss =  this.readFileAsString(path.join(__dirname, '/templates/' + this.platform + "/" + this.framework + "/css/transitions.css"));
           }//end if
           this.defaultCss = this.defaultCss + "\n" + transitionCss;
           this.write(this.commonDir + "/css/common.css",this.defaultCss);
-          this.write(this.commonDir + "/css/main.css","@import url('./animate-custom.css');\n@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
+          this.write(this.commonDir + "/css/main.css","@import url('../js/lib/bootstrap/dist/css/bootstrap.min.css');@import url('../js/lib/bootstrap/dist/css/bootstrap-theme.min.css');@import url('./animate-custom.css');\n@import url('./common.css');\n@import url('../commonapp/commonapp.css');\n");
       }//end if
   }else{
 	  this.copy(this.templateDir + "/common/js/index.js",this.commonDir + "/js/index.js");
@@ -156,22 +158,29 @@ ChrisGenerator.prototype.tests = function tests() {
     if(this.framework === "jqm-angular" || this.framework === "bootstrap-angular"){
         var cb = this.async();
         this.template(this.templateDir + "/_karma.conf.js","karma.conf.js");
-        //copy test dir over
+        //copy unit test dir over
         fsextra.copy(this._sourceRoot + "/" + this.templateDir + "/test/unit", this.options.env.cwd + "/test/unit",function(err){
             if (err) {
-                console.error("Failed copying test directory" + err);
+                console.error("Failed copying unit test directory" + err);
                 cb(err);
             }else{
-                console.log("Success copying test directory.");
+                console.log("Success copying unit test directory.");
                 //Now copy over _test-main.js and angular-mocks.js
                 this.template(this.templateDir + "/test/_test-main.js",this.options.env.cwd + "/test/test-main.js");
                 this.copy(this.templateDir + "/test/angular-mocks.js",this.options.env.cwd + "/test/angular-mocks.js");
-                cb();
+                //copy functional test dir over
+                fsextra.copy(this._sourceRoot + "/" + this.templateDir + "/test/functional", this.options.env.cwd + "/test/functional",function(err){
+                    if (err) {
+                        console.error("Failed copying functional test directory" + err);
+                        cb(err);
+                    }else{
+                        console.log("Success copying functional test directory.");
+                        cb();
+                    }//end if
+                }.bind(this));
             }//end if
         }.bind(this));
+
+
     }//end if
-
-
-
-
 };

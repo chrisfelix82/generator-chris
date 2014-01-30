@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Developer Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="jslib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" data-role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Developer Console</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active docs"><a href="javascript:showTab('docs');">JS Docs</a></li>
+            <li class="jshint"><a href="javascript:showTab('jshint');">JSHint</a></li>
+            <li class="unit"><a href="javascript:showTab('unit');">Karma Unit Tests</a></li>
+            <li class="coverage"><a href="javascript:showTab('coverage');">Karma Coverage Tests</a></li>
+            <li class="protractor"><a href="javascript:showTab('protractor');">Protractor Functional Tests</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+    <div class="container" style="height: 100%;width: 100%;margin-top:5em">
+    	<iframe id="docsFrame" class="container" style="height: 100%;width: 100%" seamless="seamless" src="docs"></iframe>
+   		<iframe id="jshintFrame" class="container hidden" style="height: 100%;width: 100%" seamless="seamless" src="jshint"></iframe>
+   		<iframe id="unitFrame" class="container hidden" style="width: 100%;" seamless='seamless' src="test/unit"></iframe>
+   		<iframe id="coverageFrame" class="container hidden" style="width: 100%;" seamless='seamless' src="test/coverage"></iframe>
+   		<iframe id="protractorFrame" class="container hidden" style="width: 100%;" seamless='seamless' src="test/functional"></iframe>
+    </div>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="jslib/jquery/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="jslib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
