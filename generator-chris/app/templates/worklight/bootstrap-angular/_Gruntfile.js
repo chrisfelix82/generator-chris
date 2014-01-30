@@ -102,7 +102,7 @@ module.exports = function(grunt) {
     });
 
     //Build & deploy tasks
-    grunt.registerTask('default', ['jshint','jsdoc','karma:unit','requirejs','clean','copy','buildwlapp','buildadapters','deployadapters','deploywlapp']);
+    grunt.registerTask('default', ['jshint','jsdoc','karma:unit','functest','requirejs','clean','copy','buildwlapp','buildadapters','deployadapters','deploywlapp']);
     grunt.registerTask('updateWAR',['undeployWAR_Liberty','buildWAR','deployWAR_Liberty']);
 
 };
